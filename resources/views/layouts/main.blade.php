@@ -14,20 +14,17 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-success">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">BaraTop</a>
+              <a class="navbar-brand" href="{{route('home')}}">BaraTop</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-              <div class="collapse navbar-collapese" id="navbarNav">
+              <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href='#'>Busqueda</a>
+                        <a class="nav-link active" aria-current="page" href='{{route('login')}}'>Iniciar Sesion</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href='#'>Busqueda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href='#'>Busqueda</a>
+                        <a class="nav-link" href='{{route('register')}}'>Registrarse</a>
                     </li>
                 </ul>
               </div>
@@ -42,7 +39,10 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
+    
+    
+    @yield("javascript")
 </body>
 </html>
