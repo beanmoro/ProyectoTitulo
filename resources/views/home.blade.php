@@ -1,5 +1,5 @@
 @extends("layouts.main")
 
 @section("contenido")
-<h1>HomePage</h1>
+<h1>Pagina Principal</h1>
 @endsection

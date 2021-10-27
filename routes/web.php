@@ -14,6 +14,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::view('/', 'home')->name('home');
-Route::view('/inicio_sesion', 'login')->name('login');
-Route::view('/registro', 'register')->name('register');
+Route::view("/","home")->name("home");
+Route::view("/caca","caca")->name("caca");
+Route::get('/dashboard', function () {
+    if(Auth::user()->role == 0){
+        return view('dashboard');
+    }else{
+        return view('home');
+    }
+})->middleware(['auth'])->name('dashboard');
+
+Route::get('/admin', function () {
+    if(Auth::user()->role == 0){
+        return view('admin_dashboard');
+    }
+    return redirect()->route('dashboard');
+
+})->middleware(['auth'])->name('admin_dashboard');
+
+require __DIR__.'/auth.php';
