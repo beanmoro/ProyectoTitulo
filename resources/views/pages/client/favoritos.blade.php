@@ -9,7 +9,8 @@
        
 
     </x-slot>
-      
+    <x-slot name="scripts">
+    </x-slot>
 </x-app-layout>
 
 

@@ -6,8 +6,13 @@
     </x-slot>
 
     <x-slot name="slot">
+
+        
+
        <x-form-card>
-           <form>
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+            <form method="POST" action="{{ route('negocios.post') }}">
                 @csrf
 
                 <div>
@@ -23,14 +28,23 @@
                 </div>
 
                 <div class="mt-4">
-                    <x-label for="direccion" :value="__('Direccion del Local')" />
+                    <x-label for="direccion" :value="__('Direccion del Recinto')" />
                     <x-input id="direccion" class="block mt-1 w-full" type="text" name="direccion" :value="old('direccion')" required autofocus />
 
                 </div>
+
+                <div class="mt-4">
+                    <x-label for="comuna" :value="__('Comuna')" />
+                    <select class="form-select rounded block w-full mt-1" name="comuna" id="comuna">
+                        <option value="quillota">Quillota</option>
+                        <option value="calera">Calera</option>
+                        <option value="limache">Limache</option>
+                    </select>
+                </div>
+
                 <div class="mt-4">
                     <x-label for="telefono" :value="__('Telefono de Contacto')" />
                     <x-input id="telefono" class="block mt-1 w-full" type="text" name="telefono" :value="old('telefono')" required autofocus />
-
                 </div>
 
                 <div class="flex item-center justify-end mt-4">
@@ -42,7 +56,12 @@
        </x-form-card>
 
     </x-slot>
-      
+
+    <x-slot name="scripts">
+        <script src="{{asset('js/service/negociosService.js')}}"></script>
+        <script src="{{asset('js/client/publicar_negocio.js')}}" ></script>
+    </x-slot>
+
 </x-app-layout>
 
 

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\NegociosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,3 +59,7 @@ Route::get('/admin', function () {
 })->middleware(['auth'])->name('admin_dashboard');
 
 require __DIR__.'/auth.php';
+
+//Negocios
+Route::post("negocios/post",[NegociosController::class, "crearNegocios"])->name('negocios.post');
+Route::get("negocios/get",[NegociosController::class, "getNegocio"])->name('negocios.get');
