@@ -24,6 +24,32 @@ Route::get('/dashboard', function () {
     }
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/buscar', function () {
+    if(Auth::user()->role == 0){
+        return view('pages.client.buscar');
+    }else{
+        return view('home');
+    }
+})->middleware(['auth'])->name('buscar');
+
+Route::get('/favoritos', function () {
+    if(Auth::user()->role == 0){
+        return view('pages.client.favoritos');
+    }else{
+        return view('home');
+    }
+})->middleware(['auth'])->name('favoritos');
+
+Route::get('/publicar_negocio', function () {
+    if(Auth::user()->role == 0){
+        return view('pages.client.publicar_negocio');
+    }else{
+        return view('home');
+    }
+})->middleware(['auth'])->name('publicar_negocio');
+
+
+
 Route::get('/admin', function () {
     if(Auth::user()->role == 0){
         return view('admin_dashboard');

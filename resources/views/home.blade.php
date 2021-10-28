@@ -1,5 +1,9 @@
-@extends("layouts.main")
+<x-guest-layout>
 
-@section("contenido")
-<h1>Pagina Principal</h1>
-@endsection
+
+    <x-slot name="slot">
+        <span class="text-6xl">Pagina Principal</span>
+    </x-slot>
+
+
+</x-guest-layout>
