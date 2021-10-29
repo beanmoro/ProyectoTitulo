@@ -15,7 +15,6 @@ use App\Http\Controllers\NegociosController;
 
 
 Route::view("/","home")->name("home");
-Route::view("/caca","caca")->name("caca");
 Route::get('/dashboard', function () {
     if(Auth::user()->role == 0){
         return view('dashboard');

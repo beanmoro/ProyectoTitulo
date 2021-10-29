@@ -6,6 +6,20 @@
     </x-slot>
 
     <x-slot name="slot">
+
+    <ul class="m-4 p-8 bg-white shadow flex flex-col">
+
+        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
+        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
+        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
+        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
+        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
+        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
+        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
+        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
+
+
+    </ul>
        
 
     </x-slot>

@@ -1,7 +1,7 @@
 @props(['image' => '', 'product' => 'Producto', 'price' => '0', 'location' => 'Ningun lugar'])
 
 
-<li class=" transition duration-500 ease-in-out w-auto bg-white border-2 border-yellow hover:bg-yellow-500 transform hover:scale-105 m-3 p-4 shadow rounded flex justify-between items-center">
+<li class=" transition duration-500 ease-in-out w-auto bg-white border-2 border-yellow hover:bg-yellow-100 transform hover:scale-105 m-3 p-4 shadow rounded flex justify-between items-center">
                 
                 
     <img  class="hidden md:block w-16 h-16 rounded-full border-2 border-gray " src="{{ $image }}" alt=""> <!-- http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink -->

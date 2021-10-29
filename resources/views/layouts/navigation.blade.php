@@ -9,6 +9,7 @@
             
             <div class="flex ">
                 <span class="text-white font-semibold text-3xl tracking-tight text-light py-4">BaraTop</span>
+                <span class="text-white font-semibold text-l tracking-tight text-light py-7">.cl</span>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -32,7 +33,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="text-white font-bold rounded-md ring-1 px-2 py-1 ring-white flex items-center text-sm font-medium text-light hover:text-light hover:border-light focus:outline-none focus:text-light focus:border-light transition duration-150 ease-in-out">
+                        <button class="text-white font-semibold rounded-md px-2 py-1 border border-white flex items-center text-sm hover:border-yellow-300 hover:text-yellow-300 focus:outline-none focus:text-yellow-200 focus:border-yellow-200 transform hover:scale-110 focus:scale-110 transition duration-150 ease-in-out">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ml-1">

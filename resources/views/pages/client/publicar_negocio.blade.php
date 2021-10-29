@@ -17,13 +17,13 @@
 
                 <div>
                     <x-label for="patente" :value="__('Patente')" />
-                    <x-input id="patente" class="block mt-1 w-full" type="text" name="patente" :value="old('patente')" required autofocus />
+                    <x-input id="patente" class="block mt-1 w-full " type="text" name="patente" :value="old('patente')" required autofocus />
 
                 </div>
 
                 <div class="mt-4">
                     <x-label for="nombre" :value="__('Nombre del Negocio')" />
-                    <x-input id="nombre" class="block mt-1 w-full" type="text" name="nombre" :value="old('nombre')" required autofocus />
+                    <x-input id="nombre" class="block mt-1 w-full " type="text" name="nombre" :value="old('nombre')" required autofocus />
 
                 </div>
 
@@ -35,7 +35,7 @@
 
                 <div class="mt-4">
                     <x-label for="comuna" :value="__('Comuna')" />
-                    <select class="form-select rounded block w-full mt-1" name="comuna" id="comuna">
+                    <select class="form-select rounded block w-full mt-1 focus:ring-2 focus:ring-oppacity-50 focus:ring-yellow-300 transform hover:scale-105 focus:scale-110  transition duration-500 ease-in-out" name="comuna" id="comuna">
                         <option value="quillota">Quillota</option>
                         <option value="calera">Calera</option>
                         <option value="limache">Limache</option>
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="flex item-center justify-end mt-4">
-                    <x-button class="ml-4">{{ __('Registrar Negocio')}}</x-button>
+                    <x-button class="ml-4 ">{{ __('Postular')}}</x-button>
                 </div>
 
 

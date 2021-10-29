@@ -9,6 +9,7 @@
             
             <div class="flex ">
                 <span class="text-white font-semibold text-3xl tracking-tight py-4">BaraTop</span>
+                <span class="text-white font-semibold text-l tracking-tight text-light py-7">.cl</span>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
