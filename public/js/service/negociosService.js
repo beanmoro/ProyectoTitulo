@@ -7,7 +7,6 @@ const getNegocio = async()=>{
 
 //crearnegocios
 const crearNegocios = async(negocio)=>{
-    console.log(negocio);
     let respuesta = await axios.post("web/negocios/post", negocio, {
         headers: {
             'Content-Type': 'application/json'
