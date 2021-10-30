@@ -27,6 +27,11 @@
                         {{ __('Publica tu Negocio') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('soporte_reporte')" :active="request()->routeIs('soporte_reporte')">
+                        {{ __('Contacto con Soporte') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -83,6 +88,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('publicar_negocio')" :active="request()->routeIs('publicar_negocio')">
                 {{ __('Publica tu Negocio') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('soporte_reporte')" :active="request()->routeIs('publicar_negocio')">
+                {{ __('Contacto con Soporte') }}
             </x-responsive-nav-link>
         </div>
 

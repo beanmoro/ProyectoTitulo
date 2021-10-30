@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 //Rutas de Controllers
 use App\Http\Controllers\NegociosController;
+use App\Http\Controllers\ReportesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,3 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Negocios
 Route::post("negocios/post",[NegociosController::class, "crearNegocios"]);
 Route::get("negocios/get",[NegociosController::class, "getNegocio"]);
+
+Route::post("reportes/post",[ReportesController::class, "crearReportes"])->name('reportes.post');
+Route::get("reportes/get",[ReportesController::class, "getReporte"])->name('reportes.get');

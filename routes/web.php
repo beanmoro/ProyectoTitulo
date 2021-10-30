@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+//Imports de controllers
 use App\Http\Controllers\NegociosController;
+use App\Http\Controllers\ReportesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +49,24 @@ Route::get('/publicar_negocio', function () {
     }
 })->middleware(['auth'])->name('publicar_negocio');
 
+Route::get('/negocio', function () {
+    if(Auth::user()->role == 0){
+        return view('pages.client.negocio');
+    }else{
+        return view('negocio');
+    }
+})->middleware(['auth'])->name('negocio');
+
+
+
+
+Route::get('/soporte_reporte', function () {
+    if(Auth::user()->role == 0){
+        return view('pages.client.soporte_reporte');
+    }else{
+        return view('home');
+    }
+})->middleware(['auth'])->name('soporte_reporte');
 
 
 Route::get('/admin', function () {
@@ -62,3 +82,7 @@ require __DIR__.'/auth.php';
 //Negocios
 Route::post("negocios/post",[NegociosController::class, "crearNegocios"])->name('negocios.post');
 Route::get("negocios/get",[NegociosController::class, "getNegocio"])->name('negocios.get');
+
+//Reportes
+Route::post("reportes/post",[ReportesController::class, "crearReportes"])->name('reportes.post');
+Route::get("reportes/get",[ReportesController::class, "getReporte"])->name('reportes.get');
