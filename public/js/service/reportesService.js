@@ -1,6 +1,6 @@
 //crearReportes
 const crearReportes = async(reporte)=>{
-    let respuesta = await axios.post("web/reportes/post", reporte, {
+    let respuesta = await axios.post("reportes/post", reporte, {
         headers: {
             'Content-Type': 'application/json'
         }
@@ -10,7 +10,7 @@ const crearReportes = async(reporte)=>{
 
 //getReportes
 const getReporte = async()=>{
-    let respuesta = await axios.get("web/reportes/get");
+    let respuesta = await axios.get("reportes/get");
     return respuesta.data;
 
 };

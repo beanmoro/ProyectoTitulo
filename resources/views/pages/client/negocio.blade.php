@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Nombre negocio') }}
+        <h2 class="font-semibold text-3xl text-gray-800 leading-tight">
+            {{ $negocio->nombre }}
         </h2>
     </x-slot>
 
@@ -10,12 +10,12 @@
 
         <div class="w-auto m-4 pr-8 flex flex-col lg:flex-row lg:pr-0 ">
 
-            <div class="bg-white w-full shadow p-8 m-4 flex flex-col">
+            <div class="bg-white w-full shadow p-8 m-4 flex flex-col rounded">
                 <span class="text-3xl font-semibold">Informacion</span>
                 <div class="mt-4 mb-4 flex flex-col">
-                    <span class="text-xl">Comuna: Quillota</span>
-                    <span class="text-xl">Direccion: Avenida EQUISDE #1234</span>
-                    <span class="text-xl">Telefono: +56 9 1234 5678</span>
+                    <span class="text-xl">Comuna: {{ $negocio->comuna }}</span>
+                    <span class="text-xl">Direccion: {{ $negocio->direccion }}</span>
+                    <span class="text-xl">Telefono: {{ $negocio->telefono }}</span>
 
                     
                     
@@ -38,7 +38,7 @@
                 </ul>
             </div>
             <!--- http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink -->
-            <div class="bg-white w-full shadow p-8 m-4 flex flex-col">
+            <div class="bg-white w-full shadow p-8 m-4 flex flex-col rounded">
                 <span class="text-3xl font-semibold">Ofertas</span>
                 <ul class="p-2 overflow-x-hidden overflow-y-auto h-96 border-2 border-gray-100 bg-gray-200 rounded-md">
                     <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='2000' oferta='1500'></x-producto-profile>
