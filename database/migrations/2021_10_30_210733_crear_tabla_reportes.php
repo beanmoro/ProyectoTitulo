@@ -19,6 +19,8 @@ class CrearTablaReportes extends Migration
             $table->string("asunto");
             $table->string("texto");
             $table->integer("tipo");
+            $table->integer("estado");
+            $table->string("respuesta");
             $table->timestamps();
         });
     }

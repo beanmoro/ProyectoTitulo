@@ -8,8 +8,13 @@
     <x-slot name="slot">
 
         
+    <div class="w-auto m-4 pr-8 flex flex-col lg:flex-row lg:pr-0 ">
 
-       <x-form-card>
+
+        <div class="bg-white m-4 p-10 rounded shadow w-full">
+
+            <span class="text-2xl font-semibold">Enviar Reporte</span>
+
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
             <form method="POST" action="{{ route('reportes.post') }}">
@@ -41,9 +46,28 @@
                 </div>
 
 
-           </form>
-       </x-form-card>
+            </form>
+        </div>
 
+        <div class="bg-white m-4 p-10 rounded shadow w-full">
+            <span class="text-2xl font-semibold">Mis Reportes</span>
+            <table class="mt-4 p-2 table-fixed rounded-md min-w-full divide-y divide-gray-200 shadow-lg">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">ID</td>
+                        <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Asunto</td>
+                        <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Descripcion</td>
+                        <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Tipo</td>
+                        <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Estado</td>
+                        <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Acciones</td>
+                    </tr>
+                </thead>
+                <tbody id="tbody-soporte" class="divide-y divide-gray-200">
+                </tbody>
+            </table>
+
+        </div>
+    </div>
     </x-slot>
 
     <x-slot name="scripts">

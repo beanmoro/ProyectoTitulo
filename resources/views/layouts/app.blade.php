@@ -19,7 +19,15 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+
+            <?php if(Auth::user()->role == 0): ?>
+
+                @include('layouts.navigation')
+            <?php elseif(Auth::user()->role == 1): ?>
+                @include('layouts.seller_navigation')
+            <?php elseif(Auth::user()->role == 2): ?>
+                @include('layouts.admin_navigation')
+            <?php endif ?>
 
             <!-- Page Heading -->
             <header class="bg-white shadow">

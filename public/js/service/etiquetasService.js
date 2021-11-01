@@ -17,14 +17,12 @@ const crearEtiquetas = async(etiqueta)=>{
 
 //eliminaretiquetas
 const eliminarEtiqueta = async(id)=>{
-    try{
-        let respuesta = await axios.post("etiquetas/delete",{id},{
-            headers:{
-                'Content-Type': 'application/json'
-            }
-        }).catch(err => console.error(err))
-        return respuesta.data == "ok";
-    }catch(e){
-        return false;
-    }
+
+    let respuesta = await axios.post("etiquetas/delete",{id},{
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    }).catch(err => console.error(err))
+    return respuesta.data == "ok";
+
 }

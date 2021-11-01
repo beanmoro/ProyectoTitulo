@@ -44,4 +44,9 @@ class NegociosController extends Controller
         $negocio = Negocio::all();
         return $negocio;
     }
+
+    public static function findOrFail(){
+
+
+    }
 }

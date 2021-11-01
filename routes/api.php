@@ -31,6 +31,9 @@ Route::get("negocios/get",[NegociosController::class, "getNegocio"]);
 
 Route::post("reportes/post",[ReportesController::class, "crearReportes"])->name('reportes.post');
 Route::get("reportes/get",[ReportesController::class, "getReporte"])->name('reportes.get');
+Route::post("reportes/delete",[ReportesController::class, "eliminarReporte"])->name('reportes.delete');
+
 
 Route::post("etiquetas/post",[EtiquetasController::class, "crearEtiquetas"])->name('etiquetas.post');
 Route::get("etiquetas/get",[EtiquetasController::class, "getEtiqueta"])->name('etiquetas.get');
+Route::post("etiquetas/delete",[EtiquetasController::class, "eliminarEtiqueta"])->name('etiquetas.delete');
