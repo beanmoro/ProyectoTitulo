@@ -21,7 +21,7 @@ class ProductosController extends Controller
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'marca' => $request->marca,
-            'etiquetas' => $request->etiquetas
+            'etiquetas' => $request->etiquetas,
             
         ]);
         
@@ -32,5 +32,13 @@ class ProductosController extends Controller
     public function getProducto(){
         $producto = Producto::all();
         return $producto;
+    }
+
+    public function eliminarProducto(Request $request){
+        $input = $request->all();
+        $id = $input["id"];
+        $productos = Producto::findOrFail($id);
+        $productos->delete();
+        return "ok";
     }
 }

@@ -23,7 +23,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('publicar_negocio')" :active="request()->routeIs('publicar_negocio')">
+                    <x-nav-link :href="route('solicitud_negocio')" :active="request()->routeIs('solicitud_negocio')">
                         {{ __('Negocios') }}
                     </x-nav-link>
                 </div>
@@ -97,7 +97,7 @@
             <x-responsive-nav-link :href="route('favoritos')" :active="request()->routeIs('favoritos')">
                 {{ __('Usuarios') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('publicar_negocio')" :active="request()->routeIs('publicar_negocio')">
+            <x-responsive-nav-link :href="route('solicitud_negocio')" :active="request()->routeIs('solicitud_negocio')">
                 {{ __('Negocios') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('producto')" :active="request()->routeIs('producto')">

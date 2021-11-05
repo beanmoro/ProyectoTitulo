@@ -22,6 +22,8 @@ class ReportesController extends Controller
             'asunto' => $request->asunto,
             'texto' => $request->texto,
             'tipo' => $request->tipo,
+            'estado' => 0,
+            'respuesta' => "",
             
             
             
@@ -33,6 +35,12 @@ class ReportesController extends Controller
 
     public function getReporte(){
         $reporte = Reporte::all();
+        return $reporte;
+    }
+
+    public function getReporteRut(String $rut){
+        $rut = strtolower($rut);
+        $reporte = Reporte::where('rut', $rut)->get();
         return $reporte;
     }
 

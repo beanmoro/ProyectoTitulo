@@ -20,6 +20,7 @@ class CrearTablaNegocios extends Migration
             $table->string("direccion");
             $table->string("comuna");
             $table->integer("telefono");
+            $table->string("rut");
             $table->timestamps();
         });
     }

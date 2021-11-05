@@ -14,17 +14,10 @@ const cargarTabla = (reporte) =>{
     for(let i=0; i < reporte.length; ++i){
         let tr = document.createElement("tr");
 
-        let tdRut = document.createElement("td");
-        tdRut.innerText = reporte[i].rut;
-        tdRut.classList.add("px-6","py-4", "whitespace-nowrap");
 
         let tdAsunto = document.createElement("td");
         tdAsunto.innerText = reporte[i].asunto;
         tdAsunto.classList.add("px-6","py-4", "whitespace-nowrap");
-
-        let tdTexto = document.createElement("td");
-        tdTexto.innerText = reporte[i].texto;
-        tdTexto.classList.add("px-6","py-4", "whitespace-nowrap");
 
         let tdTipo = document.createElement("td");
         tdTipo.innerText = reporte[i].tipo;
@@ -78,7 +71,7 @@ const cargarTabla = (reporte) =>{
         botonRevisar.innerHTML = "<span class='text-md material-icons text-white'>visibility</span>";
         botonRevisar.classList.add("inline-flex","items-center","px-2" , "shadow-md","py-2" ,"bg-blue-600" ,"border" ,"border-transparent" ,"rounded-md" ,"font-semibold", "text-xs" ,"text-white" ,"uppercase" ,"tracking-wrutest", "hover:shadow-lg" ,"hover:bg-blue-400" ,"active:bg-blue-900" ,"focus:outline-none" ,"focus:border-blue-900" ,"focus:ring" ,"ring-blue-300" ,"disabled:opacity-25" ,"transform" ,"hover:scale-105" ,"focus:scale-110" ,"transition" ,"ease-in-out" ,"duration-150");
         botonRevisar.addEventListener("click", ()=>{
-            window.location = "/admin/reporte/"+reporte[i].id;
+            window.location = "/reporte/"+reporte[i].id;
         });
 
         let botonEliminar = document.createElement("button");
@@ -88,7 +81,6 @@ const cargarTabla = (reporte) =>{
         botonEliminar.addEventListener("click",deleteReporte);
         
 
-        tr.appendChild(tdRut);
         tr.appendChild(tdAsunto);
         tr.appendChild(tdTipo);
         tr.appendChild(tdFecha);
@@ -106,6 +98,6 @@ const cargarTabla = (reporte) =>{
 }
 
 document.addEventListener("DOMContentLoaded" , async()=>{
-    let reporte = await getReporte();
+    let reporte = await getReporteRut(userRUT);
     cargarTabla(reporte);
 });

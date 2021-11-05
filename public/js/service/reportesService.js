@@ -15,6 +15,12 @@ const getReporte = async()=>{
 
 };
 
+const getReporteRut = async(rut)=>{
+    let respuesta = await axios.get("reportes/get/"+rut , {rut});
+    return respuesta.data;
+
+};
+
 
 //eliminarreportes
 const eliminarReporte = async(id)=>{

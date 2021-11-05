@@ -71,6 +71,14 @@ Route::get('/soporte_respuesta', function () {
     }
 })->middleware(['auth'])->name('soporte_respuesta');
 
+Route::get('/solicitud_negocio', function () {
+    if(Auth::user()->role >= 0){
+        return view('pages.admin.solicitud_negocio');
+    }else{
+        return redirect()->route('home');
+    }
+})->middleware(['auth'])->name('solicitud_negocio');
+
 Route::get('/soporte_reporte', function () {
     if(Auth::user()->role >= 0){
         return view('pages.client.soporte_reporte');
@@ -142,6 +150,11 @@ Route::get("negocios/get",[NegociosController::class, "getNegocio"])->name('nego
 //Reportes
 Route::post("reportes/post",[ReportesController::class, "crearReportes"])->name('reportes.post');
 Route::get("reportes/get",[ReportesController::class, "getReporte"])->name('reportes.get');
+
+
+Route::get("reportes/get/{rut}", [ReportesController::class, "getReporteRut"])->name('reportes.get.rut');
+
+
 Route::patch("reporte/{reporte}/responder", [ReportesController::class, "update"])->name('reportes.responder');
 Route::post("reportes/delete",[ReportesController::class, "eliminarReporte"])->name('reportes.delete');
 
@@ -153,3 +166,4 @@ Route::post("etiquetas/delete",[EtiquetasController::class, "eliminarEtiqueta"])
 //Productos
 Route::post("productos/post",[ProductosController::class, "crearProductos"])->name('productos.post');
 Route::get("productos/get",[ProductosController::class, "getProducto"])->name('productos.get');
+Route::post("productos/delete",[ProductosController::class, "eliminarProducto"])->name('productos.delete');

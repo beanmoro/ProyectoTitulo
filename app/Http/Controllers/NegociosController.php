@@ -27,7 +27,7 @@ class NegociosController extends Controller
         ]);
 
         $negocio = Negocio::create([
-
+            'rut' => Auth::user()->rut,
             'patente' => $request->patente,
             'nombre' => $request->nombre,
             'direccion' => $request->direccion,
@@ -49,4 +49,5 @@ class NegociosController extends Controller
 
 
     }
+    
 }

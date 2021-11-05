@@ -59,7 +59,7 @@
 
     <x-slot name="scripts">
         <script src="{{asset('js/service/negociosService.js')}}"></script>
-        <script src="{{asset('js/client/publicar_negocio.js')}}" ></script>
+        
     </x-slot>
 
 </x-app-layout>

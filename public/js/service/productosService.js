@@ -14,3 +14,14 @@ const getProducto = async()=>{
     return respuesta.data;
 
 };
+
+//eliminarproductos
+const eliminarProducto = async(id)=>{
+    let respuesta = await axios.post("productos/delete",{id},{
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    }).catch(err => console.error(err))
+    return respuesta.data == "ok";
+
+}

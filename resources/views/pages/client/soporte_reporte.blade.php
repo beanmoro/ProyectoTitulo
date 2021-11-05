@@ -54,10 +54,10 @@
             <table class="mt-4 p-2 table-fixed rounded-md min-w-full divide-y divide-gray-200 shadow-lg">
                 <thead class="bg-gray-50">
                     <tr>
-                        <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">ID</td>
+                        
                         <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Asunto</td>
-                        <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Descripcion</td>
                         <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Tipo</td>
+                        <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Fecha</td>
                         <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Estado</td>
                         <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Acciones</td>
                     </tr>
@@ -71,7 +71,15 @@
     </x-slot>
 
     <x-slot name="scripts">
+        @if(Auth::check())
+            <script>
+                var userRUT = '{{ Auth::user()->rut }}';
+            </script>
+        @endif
+                
+        </script>
         <script src="{{asset('js/service/reportesService.js')}}"></script>
+        <script src="{{asset('js/soporte.js')}}"></script>
     </x-slot>
 
 </x-app-layout>

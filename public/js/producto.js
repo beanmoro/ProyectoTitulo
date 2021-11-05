@@ -1,4 +1,11 @@
 
+const deleteProducto = async function(){
+    let id = this.idProducto;
+    if(await eliminarProducto(id)){
+        let Producto = await getProducto();
+        cargarTabla(Producto);
+    }
+}
 
 const cargarTabla = (producto) =>{
     let tbody = document.querySelector("#tbody-producto");
@@ -28,7 +35,8 @@ const cargarTabla = (producto) =>{
         let botonEliminar = document.createElement("button");
         botonEliminar.innerHTML = "<span class='text-md material-icons text-white'>delete</span>";
         botonEliminar.classList.add("inline-flex","items-center","px-2" , "shadow-md","py-2" ,"bg-red-600" ,"border" ,"border-transparent" ,"rounded-md" ,"font-semibold", "text-xs" ,"text-white" ,"uppercase" ,"tracking-widest", "hover:shadow-lg" ,"hover:bg-red-400" ,"active:bg-red-900" ,"focus:outline-none" ,"focus:border-red-900" ,"focus:ring" ,"ring-red-300" ,"disabled:opacity-25" ,"transform" ,"hover:scale-105" ,"focus:scale-110" ,"transition" ,"ease-in-out" ,"duration-150");
-        
+        botonEliminar.idProducto = producto[i].id;
+        botonEliminar.addEventListener("click", deleteProducto);
 
         
         tr.appendChild(tdNombre);
