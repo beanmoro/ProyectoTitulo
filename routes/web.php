@@ -45,10 +45,13 @@ Route::get('/favoritos', function () {
 Route::get('/publicar_negocio', function () {
     if(Auth::user()->role == 0){
         return view('pages.client.publicar_negocio');
+    }else if(Auth::user()->role == 3){
+        return view('pages.client.solicitado');    
     }else{
         return redirect()->route('buscar');
     }
 })->middleware(['auth'])->name('publicar_negocio');
+
 
 Route::get('/negocio/{id}', function ($id) {
     if(Auth::user()->role >= 0){
@@ -103,6 +106,13 @@ Route::get('/producto', function () {
     }
 })->middleware(['auth'])->name('producto');
 
+Route::get('/usuarios', function () {
+    if(Auth::user()->role == 2){
+        return view('pages.admin.usuarios');
+    }else{
+        return redirect()->route('home');
+    }
+})->middleware(['auth'])->name('usuarios');
 
 Route::get('/reporte/{id}', function ($id) {
     if(Auth::user()->role >= 0){

@@ -20,8 +20,7 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
 
-            <?php if(Auth::user()->role == 0): ?>
-
+            <?php if(Auth::user()->role == 0 ||Auth::user()->role == 3 ): ?>
                 @include('layouts.navigation')
             <?php elseif(Auth::user()->role == 1): ?>
                 @include('layouts.seller_navigation')

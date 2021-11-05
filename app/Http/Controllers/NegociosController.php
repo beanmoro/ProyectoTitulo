@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Negocio;
 
 class NegociosController extends Controller
@@ -35,6 +36,10 @@ class NegociosController extends Controller
             'telefono' => $request->telefono,
 
         ]);
+
+        $user = Auth::user();
+        $user->role = 3;
+        $user->save();
 
 
         return redirect()->route('publicar_negocio');

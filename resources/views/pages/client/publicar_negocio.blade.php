@@ -35,11 +35,11 @@
 
                 <div class="mt-4">
                     <x-label for="comuna" :value="__('Comuna')" />
-                    <select class="form-select rounded block w-full mt-1 focus:ring-2 focus:ring-oppacity-50 focus:ring-yellow-300 transform hover:scale-105 focus:scale-110  transition duration-500 ease-in-out" name="comuna" id="comuna">
+                    <x-select id='comuna' name='comuna'>
                         <option value="quillota">Quillota</option>
                         <option value="calera">Calera</option>
                         <option value="limache">Limache</option>
-                    </select>
+                    </x-select>
                 </div>
 
                 <div class="mt-4">
