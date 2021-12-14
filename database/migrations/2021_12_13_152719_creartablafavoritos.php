@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CrearTablaNegocios extends Migration
+class CrearTablaFavoritos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CrearTablaNegocios extends Migration
      */
     public function up()
     {
-        Schema::create('negocios', function (Blueprint $table) {
-            $table->string("patente")->primary();
+        Schema::create('favoritos', function (Blueprint $table) {
+            $table->id();
             $table->string("nombre");
-            $table->string("direccion");
-            $table->string("comuna");
-            $table->integer("telefono");
-            $table->string("rut");
-            $table->foreign("rut")->references("rut")->on("users");
+            $table->string("negocio");
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CrearTablaNegocios extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('negocios');
+        Schema::dropIfExists('favoritos');
     }
 }
