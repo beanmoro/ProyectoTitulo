@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Negocio;
+use App\Models\User;
+use App\Models\PostProducto;
+use App\Models\Feedback;
 
 class NegociosController extends Controller
 {
@@ -50,9 +53,64 @@ class NegociosController extends Controller
         return $negocio;
     }
 
-    public static function findOrFail(){
 
+    //Funciones de Relacion
+
+    public function setUsuario(Request $request){
+
+        $negocio = Negocio::findOrFail($request->patente);
+        $usuario = User::findOrFail($request->user_id);
+        $negocio->usuario()->attach($usuario->id);
+        return $negocio;
 
     }
+
+    public function getUsuario(Negocio $negocio){
+
+        return $negocio->usuario()->get();
+    }
+
+
+    public function addPostProducto(Request $request){
+
+        $negocio = Negocio::findOrFail($request->patente);
+        $postproducto = PostProducto::findOrFail($request->postprod_id);
+        $negocio->postproductos()->attach($postproducto->id);
+        return $negocio;
+        
+    }
+    
+    public function getPostProductos(Negocio $negocio){
+        return $negocio->postproductos()->get();
+    }
+
+
+    public function removePostProducto(Negocio $negocio, Request $request){
+
+        $postproducto = PostProducto::findOrFail($request->postprod_id);
+        $negocio->postproductos()->detach($postproducto->id);
+        return $negocio;
+    }
+
+    public function addFeedback(Request $request){
+
+        $negocio = Negocio::findOrFail($request->patente);
+        $feedback = Feedback::findOrFail($request->feedback_id);
+        $negocio->feedback()->attach($feedback->id);
+        return $negocio;
+
+    }
+
+    public function getFeedback(Negocio $negocio){
+        return $negocio->feedback()->get();
+    }
+
+    public function removeFeedback(Negocio $negocio, Request $request){
+        
+        $feedback = Feedback::findOrFail($request->feedback_id);
+        $negocio->feedback()->detach($feedback->id);
+        return $negocio;
+    }
+
     
 }

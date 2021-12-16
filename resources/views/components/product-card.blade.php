@@ -13,7 +13,7 @@
 
     <span class="ml-1">${{$price}}</span> <!-- $340 -->
     <div class="flex">
-        <button class="ml-1 rounded bg-blue-600 hover:bg-blue-400 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4">
+        <button class="ml-1 rounded bg-blue-600 hover:bg-blue-400 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4" onclick="window.location='https://wa.me/+56-971829905'">
             <span class=" mt-3 mb-2 items-center material-icons text-white">textsms</span>
         </button>
         <button class="ml-1 rounded bg-blue-600 hover:bg-blue-400 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4" onclick="{ route('negocio/'{{$negocio}})}">

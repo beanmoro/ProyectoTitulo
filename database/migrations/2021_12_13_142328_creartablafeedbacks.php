@@ -16,7 +16,7 @@ class CrearTablaFeedbacks extends Migration
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
             $table->string("comentario");
-            $table->bool("calificacion");
+            $table->boolean("calificacion");
             $table->string("rut");
             $table->foreign("rut")->references("rut")->on("users");
             $table->timestamps();

@@ -37,4 +37,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function negocio(){
+        return $this->belongsTo(Negocio::class);
+    }
+
+    public function favoritos(){
+        return $this->belongsToMany(Favorito::class, "favorito_user", "favorito_id", "user_id");
+    }
+
+    public function reportes(){
+        return $this->belongsToMany(Reporte::class, "reporte_user", "reporte_id", "user_id");
+    }
+
 }

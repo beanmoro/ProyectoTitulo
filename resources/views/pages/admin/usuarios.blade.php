@@ -17,11 +17,11 @@
                             <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Rut</td>
                             <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Nombre</td>
                             <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Email</td>
-                            <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Estado</td>
+                            <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Rol</td>
                             <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Acciones</td>
                         </tr>
                     </thead>
-                    <tbody id="tbody-usuario" class="divide-y divide-gray-200">
+                    <tbody id="tbody-usuarios" class="divide-y divide-gray-200">
                     </tbody>
                 </table>
             </div>
@@ -32,7 +32,8 @@
     </x-slot>
 
     <x-slot name="scripts">
-        
+        <script src="{{asset('js/service/usuariosService.js')}}"></script>
+        <script src="{{asset('js/usuarios.js')}}"></script>
     </x-slot>
 
 </x-app-layout>

@@ -6,23 +6,31 @@
     </x-slot>
 
     <x-slot name="slot">
-       
-        <div class="bg-white m-4 p-8 shadow flex">
+        <form method="GET" action="#">
+            <div class="bg-white m-4 p-8 shadow flex">
+            
+                <input name="producto" class="w-full rounded p-2" type="text" placeholder="Intenta buscar 'Leche'">
+                <button class="ml-1 bg-red-400 hover:bg-red-300 rounded text-white p-2 pl-4 pr-4 transition duration-500 ease-in-out transform hover:scale-110">
+                    
+                    <span class="material-icons text-3xl py-1">search</span>
+                    
+                </button>
+            
 
-            <input class="w-full rounded p-2" type="text" placeholder="Intenta buscar 'Leche'">
-            <button class="ml-1 bg-red-400 hover:bg-red-300 rounded text-white p-2 pl-4 pr-4 transition duration-500 ease-in-out transform hover:scale-110">
-                
-                <span class="material-icons text-3xl py-1">search</span>
-                
-            </button>
-
-        </div>
+            </div>
+        </form>
 
 
         <ul class="bg-white m-4 p-8 shadow flex flex-col">
 
             <!-- Productos Buscados -->
+            @foreach($productos as $producto)
 
+            <x-product-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" product="{{$producto->nombre}}" location="Quillota" price="340" ></x-product-card>
+
+            @endforeach
+
+{{-- 
             <x-product-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" product="Leche Entera Colun 200cc" location="Quillota" price="340" ></x-product-card>
             <x-product-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" product="Leche Entera Colun 200cc" location="Calera" price="340" ></x-product-card>
             <x-product-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" product="Leche Entera Colun 200cc" location="Limache" price="340" ></x-product-card>
@@ -43,7 +51,7 @@
             <x-product-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" product="Leche Entera Colun 200cc" location="Quillota" price="340" ></x-product-card>
             <x-product-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" product="Leche Entera Colun 200cc" location="Quillota" price="340" ></x-product-card>
 
-
+ --}}
 
           
 

@@ -17,7 +17,7 @@ class CrearTablaOfertas extends Migration
             $table->id();
             $table->integer("descuento");
             $table->bigInteger("postproducto_id")->unsigned();
-            $table->foreing("postproducto_id")->references("id")->on("postproductos");
+            $table->foreign("postproducto_id")->references("id")->on("postproductos");
             $table->timestamps();
         });
     }

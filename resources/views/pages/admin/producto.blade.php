@@ -32,19 +32,24 @@
 
                     <div class="mt-4">
                         <x-label for="marca" :value="__('Marca')" />
-                        <select class="form-select rounded block w-full mt-1 focus:ring-2 focus:ring-oppacity-50 focus:ring-yellow-300 transform hover:scale-105 focus:scale-110  transition duration-500 ease-in-out" name="marca" id="marca">
+                        <select name="marca" id="marca" class="form-select rounded block w-full mt-1 focus:ring-2 focus:ring-oppacity-50 focus:ring-yellow-300 transform hover:scale-105 focus:scale-110  transition duration-500 ease-in-out" >
+                            
                             <option value="lider">Lider</option>
                             <option value="tottus">Tottus</option>
                             <option value="jumbo">Jumbo</option>
+                            
                         </select>
                     </div>
 
                     <div class="mt-4" > 
                         <x-label for="etiquetas" :value="__('Etiqueta')" />
-                        <select class="form-select rounded block w-full mt-1 focus:ring-2 focus:ring-oppacity-50 focus:ring-yellow-300 transform hover:scale-105 focus:scale-110  transition duration-500 ease-in-out" name="etiquetas" id="etiquetas">
-                            <option value="Lacteo">Lacteo</option>
+                        <select  multiple="multiple" name="etiquetas[]" id="etiquetas" class="form-select rounded block w-full mt-1 focus:ring-2 focus:ring-oppacity-50 focus:ring-yellow-300 transform hover:scale-105 focus:scale-110  transition duration-500 ease-in-out">
+                            @foreach($etiquetas as $etiqueta)
+                            <option value="{{$etiqueta->nombre}}">{{$etiqueta->nombre}}</option>
+                            @endforeach
+                            {{-- <option value="Lacteo">Lacteo</option>
                             <option value="Avena">Avena</option>
-                            <option value="Cereal">Cereal</option>
+                            <option value="Cereal">Cereal</option> --}}
                         </select>
                         
 

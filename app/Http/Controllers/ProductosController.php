@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Etiqueta;
+
 class ProductosController extends Controller
 {
     public function crearProductos(Request $request){
@@ -12,19 +14,25 @@ class ProductosController extends Controller
             'nombre' => ['required', 'string', 'max:32'],
             'descripcion' =>['required','string','max:512'],
             'marca' =>['required','string'],
-            'etiquetas' =>['required','string']
+            'etiquetas' =>['required','array']
 
 
         ]);
-
+        
         $producto = Producto::create([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'marca' => $request->marca,
-            'etiquetas' => $request->etiquetas,
+            'etiquetas' => "",
+
             
         ]);
-        
+
+        $etiquetas = Etiqueta::whereIn('nombre', $request->etiquetas)->get();
+        foreach($etiquetas as $etiqueta){
+            $producto->etiquetas()->attach($etiqueta->id);
+        }
+
 
         return redirect()->route('producto');
     }
@@ -41,4 +49,23 @@ class ProductosController extends Controller
         $productos->delete();
         return "ok";
     }
+
+
+    //Funciones de Relacion
+
+    public function addEtiqueta(Request $request){
+
+        $producto = Producto::findOrFail($request->producto_id);
+        $etiqueta = Etiqueta::findOrFail($request->etiqueta_id);
+        $producto->etiquetas()->attach($etiqueta->id);
+        return $producto;
+    }
+
+    public function getEtiquetas(Producto $producto){
+        return $producto->etiquetas()->get();
+    }
+
+
+
+
 }

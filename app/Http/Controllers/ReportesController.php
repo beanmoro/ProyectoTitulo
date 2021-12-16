@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Reporte;
+use App\Models\User;
 
 class ReportesController extends Controller
 {
@@ -62,5 +63,13 @@ class ReportesController extends Controller
         $reporte->update($attribs);
 
         return back();
+    }
+
+    //Funciones de Relacion
+
+    public function getUsuario(Reporte $reporte){
+
+        return $reporte->usuario()->get();
+
     }
 }
