@@ -69,11 +69,60 @@ Route::get('/publicar_negocio', function () {
 })->middleware(['auth'])->name('publicar_negocio');
 
 
-Route::get('/negocio/{id}', function ($id) {
+Route::get('/negocio/administrar', function(){
+    if(Auth::user()->role >= 1){
+
+        return view('pages.seller.negocio');
+    }else{
+
+        return redirect()->route('buscar');
+    }
+
+
+})->middleware(['auth'])->name('administrar_negocio');
+
+Route::get('/negocio/editar', function(){
+    if(Auth::user()->role >= 1){
+
+        return view('pages.seller.editar');
+    }else{
+
+        return redirect()->route('buscar');
+    }
+
+})->middleware(['auth'])->name('editar_negocio');
+
+Route::get('/negocio/administrar/agregar_producto', function(){
+    if(Auth::user()->role >= 1){
+
+        return view('pages.seller.agregar_producto',[
+            'productos' => Producto::latest()->get()
+        ]);
+    }else{
+
+        return redirect()->route('buscar');
+    }
+
+
+})->middleware(['auth'])->name('agregar_postproducto');
+
+Route::get('/negocio/administrar/agregar_oferta', function(){
+    if(Auth::user()->role >= 1){
+
+        return view('pages.seller.agregar_oferta');
+    }else{
+
+        return redirect()->route('buscar');
+    }
+
+
+})->middleware(['auth'])->name('agregar_oferta');
+
+Route::get('/negocio/{patente}', function ($patente) {
     if(Auth::user()->role >= 0){
         return view('pages.client.negocio', [
 
-            'negocio' => Negocio::findOrFail($id)
+            'negocio' => Negocio::findOrFail($patente)
         ]);
 
     }else{
@@ -116,8 +165,6 @@ Route::get('/nueva_etiqueta', function () {
 
 Route::get('/producto', function () {
     if(Auth::user()->role == 2){
-
-
         return view('pages.admin.producto', [
             'etiquetas' => Etiqueta::latest()->get()
         ]);
@@ -194,8 +241,9 @@ Route::post("productos/post",[ProductosController::class, "crearProductos"])->na
 Route::get("productos/get",[ProductosController::class, "getProducto"])->name('productos.get');
 Route::post("productos/delete",[ProductosController::class, "eliminarProducto"])->name('productos.delete');
 
+//Usuarios
 Route::get("usuarios/get",[UsuariosController::class, "getUsuarios"])->name('usuarios.get');
-
+Route::put("usuarios/ban/{user}",[UsuariosController::class, "banUsuario"])->name('usuarios.ban');
 
 
 //Rutas de Relaciones
@@ -229,6 +277,7 @@ Route::get('/producto/{producto}/etiquetas', [ProductosController::class, 'getEt
 Route::get('/reporte/{reporte}/usuario', [ReportesController::class, 'getUsuario']);
 
 //Usuario
+
 Route::post('/usuario/negocio', [UsuariosController::class, 'addNegocio']);
 Route::get('/usuario/{user}/negocio', [UsuariosController::class, 'getNegocio']);
 Route::post('/usuario/favorito', [UsuariosController::class, 'addFavorito']);
@@ -239,17 +288,3 @@ Route::get('/usuario/{user}/reportes', [UsuariosController::class, 'getReportes'
 Route::post('/usuario/{user}/reporte/remover', [UsuariosController::class, 'removeReporte']);
 
 
-//Ruta de testeo
-
-Route::get('/buscar_cosas', function(){
-
-    $productos = Productos::latest();
-
-    if(request('search')) {
-        $productos->where('nombre', 'like', '%' . request('search') . '%');
-    }
-
-    return view('pages.client.buscar', [
-        'productos' => $productos->get()
-    ]);
-});

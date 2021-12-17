@@ -39,9 +39,9 @@
             <main>
                 {{ $slot }}
             </main>
-            
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         </div>
-
+        
         {{ $scripts}}
     </body>
 </html>

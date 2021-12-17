@@ -1,10 +1,19 @@
 
 const deleteProducto = async function(){
     let id = this.idProducto;
-    if(await eliminarProducto(id)){
-        let Producto = await getProducto();
-        cargarTabla(Producto);
+    let eliminarbtn = await Swal.fire({title:"Esta seguro de la operacion?",text:"Esta operacion no es reversible"
+    , icon: "warning",showCancelButton:true});
+    if(eliminarbtn.isConfirmed){
+        Swal.fire("El producto a eliminar es: " + this.nombreProducto);
+        if(await eliminarProducto(id)){
+            let Producto = await getProducto();
+            cargarTabla(Producto);
+            Swal.fire("Producto eliminado", "Se elimino correctamente el producto", "info");
+        }
+    }else{
+        Swal.fire("Cancelado", "La operacion fue cancelada", "info");
     }
+    
 }
 
 const cargarTabla = (producto) =>{
@@ -36,6 +45,7 @@ const cargarTabla = (producto) =>{
         botonEliminar.innerHTML = "<span class='text-md material-icons text-white'>delete</span>";
         botonEliminar.classList.add("inline-flex","items-center","px-2" , "shadow-md","py-2" ,"bg-red-600" ,"border" ,"border-transparent" ,"rounded-md" ,"font-semibold", "text-xs" ,"text-white" ,"uppercase" ,"tracking-widest", "hover:shadow-lg" ,"hover:bg-red-400" ,"active:bg-red-900" ,"focus:outline-none" ,"focus:border-red-900" ,"focus:ring" ,"ring-red-300" ,"disabled:opacity-25" ,"transform" ,"hover:scale-105" ,"focus:scale-110" ,"transition" ,"ease-in-out" ,"duration-150");
         botonEliminar.idProducto = producto[i].id;
+        botonEliminar.nombreProducto = producto[i].nombre;
         botonEliminar.addEventListener("click", deleteProducto);
 
         

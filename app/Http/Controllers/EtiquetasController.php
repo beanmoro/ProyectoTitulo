@@ -28,6 +28,12 @@ class EtiquetasController extends Controller
         $input = $request->all();
         $id = $input["id"];
         $etiqueta = Etiqueta::findOrFail($id);
+        $productos = $etiqueta->productos()->get();
+
+        foreach($productos as $producto){
+            $producto->etiquetas->detach($etiqueta->id);
+        }
+        
         $etiqueta->delete();
         return "ok";
     }

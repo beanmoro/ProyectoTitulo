@@ -24,16 +24,13 @@ class ProductosController extends Controller
             'descripcion' => $request->descripcion,
             'marca' => $request->marca,
             'etiquetas' => "",
-
-            
         ]);
 
         $etiquetas = Etiqueta::whereIn('nombre', $request->etiquetas)->get();
         foreach($etiquetas as $etiqueta){
             $producto->etiquetas()->attach($etiqueta->id);
         }
-
-
+        
         return redirect()->route('producto');
     }
 

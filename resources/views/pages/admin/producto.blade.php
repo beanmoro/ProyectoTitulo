@@ -33,11 +33,9 @@
                     <div class="mt-4">
                         <x-label for="marca" :value="__('Marca')" />
                         <select name="marca" id="marca" class="form-select rounded block w-full mt-1 focus:ring-2 focus:ring-oppacity-50 focus:ring-yellow-300 transform hover:scale-105 focus:scale-110  transition duration-500 ease-in-out" >
-                            
                             <option value="lider">Lider</option>
                             <option value="tottus">Tottus</option>
                             <option value="jumbo">Jumbo</option>
-                            
                         </select>
                     </div>
 
@@ -45,14 +43,9 @@
                         <x-label for="etiquetas" :value="__('Etiqueta')" />
                         <select  multiple="multiple" name="etiquetas[]" id="etiquetas" class="form-select rounded block w-full mt-1 focus:ring-2 focus:ring-oppacity-50 focus:ring-yellow-300 transform hover:scale-105 focus:scale-110  transition duration-500 ease-in-out">
                             @foreach($etiquetas as $etiqueta)
-                            <option value="{{$etiqueta->nombre}}">{{$etiqueta->nombre}}</option>
+                                <option value="{{$etiqueta->nombre}}">{{$etiqueta->nombre}}</option>
                             @endforeach
-                            {{-- <option value="Lacteo">Lacteo</option>
-                            <option value="Avena">Avena</option>
-                            <option value="Cereal">Cereal</option> --}}
                         </select>
-                        
-
                     </div>
                     <div class="flex item-center justify-end mt-4">
                         <x-button class="ml-4 ">{{ __('Ingresar producto')}}</x-button>

@@ -17,7 +17,11 @@ class UsuariosController extends Controller
         return $Usuarios;
     }
 
-
+    public function banUsuario(User $user){
+        $user->role = -1;
+        $user->save();
+        return "ok";
+    }
     //Funciones de Relacion
 
     public function addNegocio(Request $request){

@@ -15,7 +15,6 @@ class ReportesController extends Controller
             'asunto' => ['required', 'string', 'max:128'],
             'texto' =>['required', 'string', 'max:512'],
             'tipo' =>['required', 'integer']
-
         ]);
 
         $reporte = Reporte::create([
@@ -25,11 +24,10 @@ class ReportesController extends Controller
             'tipo' => $request->tipo,
             'estado' => 0,
             'respuesta' => "",
-            
-            
-            
         ]);
 
+        $user = User::findOrFail(Auth::user()->id);
+        $reporte->usuario()->attach($user->id);
 
         return redirect()->route('soporte_reporte');
     }
@@ -49,6 +47,15 @@ class ReportesController extends Controller
         $input = $request->all();
         $id = $input["id"];
         $reporte = Reporte::findOrFail($id);
+
+        $users = $reporte->usuario()->get();
+
+        foreach($users as $user){
+            $reporte->usuario()->detach($user->id);
+        }
+        
+
+
         $reporte->delete();
         return "ok";
     }
@@ -67,9 +74,17 @@ class ReportesController extends Controller
 
     //Funciones de Relacion
 
+    public function setUsuario(Request $request){
+        $favorito = Favorito::findOrFail($request->favorito_id);
+        $usuario = User::findOrFail($request->user_id);
+        $favorito->usuario()->attach($usuario->id);
+        return $favorito;
+    }
+    
     public function getUsuario(Reporte $reporte){
 
         return $reporte->usuario()->get();
 
     }
+
 }

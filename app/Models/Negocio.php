@@ -10,6 +10,8 @@ class Negocio extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $table = 'negocios';
+    protected $primaryKey = 'patente';
 
     public function usuario(){
 
