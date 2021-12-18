@@ -10,14 +10,16 @@
         <x-form-card>
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-            <form method="POST" action="#">
+            <form method="POST" action="{{ route('postproductos.post') }}">
                 @csrf
+                @method('POST')
+                
 
                 <div class="mt-4">
                     <x-label for="producto" :value="__('Producto')" />
                     <x-select id='producto' name='producto'>
                     @foreach ($productos as $producto)
-                    <option value="{{$producto->nombre}}">{{$producto->nombre}}</option>
+                    <option value="{{$producto->id}}">{{$producto->nombre}}</option>
                     @endforeach
                     </x-select>
                 </div>

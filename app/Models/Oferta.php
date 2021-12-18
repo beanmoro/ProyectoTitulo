@@ -9,7 +9,9 @@ class Oferta extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['postproducto_id', 'descuento'];
+
     public function postproducto(){
-        return $this->hasMany(PostProducto::class);
+        return $this->belongsTo(PostProducto::class);
     }
 }

@@ -7,10 +7,15 @@ use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\EtiquetasController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\PostProductosController;
+use App\Http\Controllers\OfertasController;
+
 
 use App\Models\Producto;
 use App\Models\Negocio;
 use App\Models\Etiqueta;
+use App\Models\Postproducto;
+use App\Models\Oferta;
 use App\Models\Reporte;
 use App\Models\User;
 
@@ -84,8 +89,17 @@ Route::get('/publicar_negocio', function () {
 
 Route::get('/negocio/administrar', function(){
     if(Auth::user()->role >= 1){
+        
+        $negocio = Negocio::where('rut', Auth::user()->rut)->first();
+        $postproductos = $negocio->postproductos()->get();
+        $ofertas = OfertasController::getOfertas();
 
-        return view('pages.seller.negocio');
+
+        return view('pages.seller.negocio', [
+            'negocio' => $negocio,
+            'postproductos' => $postproductos,
+            'ofertas' => $ofertas,
+        ]);
     }else{
 
         return redirect()->route('buscar');
@@ -96,8 +110,11 @@ Route::get('/negocio/administrar', function(){
 
 Route::get('/negocio/editar', function(){
     if(Auth::user()->role >= 1){
+        $negocio = Negocio::where('rut', Auth::user()->rut);
 
-        return view('pages.seller.editar');
+        return view('pages.seller.editar', [
+            'negocio' => $negocio->first()
+        ]);
     }else{
 
         return redirect()->route('buscar');
@@ -122,7 +139,11 @@ Route::get('/negocio/administrar/agregar_producto', function(){
 Route::get('/negocio/administrar/agregar_oferta', function(){
     if(Auth::user()->role >= 1){
 
-        return view('pages.seller.agregar_oferta');
+        $postproductos = PostProductosController::getPostProductos();
+
+        return view('pages.seller.agregar_oferta', [
+            'postproductos' => $postproductos
+        ]);
     }else{
 
         return redirect()->route('buscar');
@@ -237,6 +258,7 @@ require __DIR__.'/auth.php';
 Route::post("negocios/post",[NegociosController::class, "crearNegocios"])->name('negocios.post');
 Route::delete("negocios/delete/{negocio}",[NegociosController::class, "eliminarNegocio"])->name('negocios.delete');
 Route::get("negocios/get",[NegociosController::class, "getNegocio"])->name('negocios.get');
+Route::put("negocios/{negocio}/editar/telefono", [NegociosController::class, "editarTelefonoNegocio"])->name('negocios.editar.telefono');
 
 //Reportes
 Route::post("reportes/post",[ReportesController::class, "crearReportes"])->name('reportes.post');
@@ -250,6 +272,15 @@ Route::post("reportes/delete",[ReportesController::class, "eliminarReporte"])->n
 Route::post("etiquetas/post",[EtiquetasController::class, "crearEtiquetas"])->name('etiquetas.post');
 Route::get("etiquetas/get",[EtiquetasController::class, "getEtiqueta"])->name('etiquetas.get');
 Route::post("etiquetas/delete",[EtiquetasController::class, "eliminarEtiqueta"])->name('etiquetas.delete');
+
+//PostProductos
+Route::post("postproductos/post",[PostProductosController::class, "crearPostProductos"])->name('postproductos.post');
+Route::get("postproductos/get",[PostProductosController::class, "getPostProductos"])->name('postproductos.get');
+
+
+//Ofertas
+Route::post("ofertas/post", [OfertasController::class, "crearOferta"])->name('oferta.post');
+Route::get("ofertas/get", [OfertasController::class, "getOfertas"])->name('oferta.get');
 
 //Productos
 Route::post("productos/post",[ProductosController::class, "crearProductos"])->name('productos.post');

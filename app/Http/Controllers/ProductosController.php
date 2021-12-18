@@ -42,8 +42,14 @@ class ProductosController extends Controller
     public function eliminarProducto(Request $request){
         $input = $request->all();
         $id = $input["id"];
-        $productos = Producto::findOrFail($id);
-        $productos->delete();
+        $producto = Producto::findOrFail($id);
+        $etiquetas = $producto->etiquetas()->get();
+        foreach($etiquetas as $etiqueta){
+            $producto->etiquetas()->detach($etiqueta->id);
+        }
+
+
+        $producto->delete();
         return "ok";
     }
 

@@ -17,7 +17,7 @@ class CrearTablaPostproductos extends Migration
             $table->id();
             $table->integer("stock_referencial");
             $table->integer("precio");
-            $table->bigInteger("producto_id")->unsigned();
+            $table->bigInteger("producto_id")->unsigned()->unique();
             $table->foreign("producto_id")->references("id")->on("productos");
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CrearTablaPostproductos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('postProductos');
+        Schema::dropIfExists('postproductos');
     }
 }

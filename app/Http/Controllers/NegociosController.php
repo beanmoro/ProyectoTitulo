@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Negocio;
 use App\Models\User;
-use App\Models\PostProducto;
+use App\Models\Postproducto;
 use App\Models\Feedback;
 
 class NegociosController extends Controller
@@ -49,6 +49,15 @@ class NegociosController extends Controller
         return redirect()->route('publicar_negocio');
     }
 
+
+    public function editarTelefonoNegocio(Negocio $negocio, Request $request){
+
+        $negocio->telefono = $request->telefono;
+        $negocio->save();
+        return redirect()->route('administrar_negocio');;
+
+    }
+
     public function getNegocio(){
         $negocio = Negocio::all();
         return $negocio;
@@ -87,7 +96,7 @@ class NegociosController extends Controller
     public function addPostProducto(Request $request){
 
         $negocio = Negocio::findOrFail($request->patente);
-        $postproducto = PostProducto::findOrFail($request->postprod_id);
+        $postproducto = Postproducto::findOrFail($request->postprod_id);
         $negocio->postproductos()->attach($postproducto->id);
         return $negocio;
         

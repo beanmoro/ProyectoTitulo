@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PostProducto extends Model
+class Postproducto extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['precio', 'stock_referencial', 'producto_id'];
     
     public function negocio(){
-        return $this->belongsToMany(Negocio::class, "negocio_postproducto", "negocio_id", "postproducto_id");
+        return $this->belongsToMany(Negocio::class, "negocio_postproducto", "postproducto_id", "negocio_id");
     }
 
     public function producto(){

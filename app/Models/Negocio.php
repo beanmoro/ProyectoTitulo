@@ -19,7 +19,7 @@ class Negocio extends Model
     }
 
     public function postproductos(){
-        return $this->belognsToMany(PostProductos::class, "negocio_postproducto", "negocio_id", "postproducto_id");
+        return $this->belongsToMany(Postproducto::class, "negocio_postproducto", "negocio_id", "postproducto_id");
     }
 
     public function feedback(){

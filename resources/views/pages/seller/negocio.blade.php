@@ -10,9 +10,10 @@
             <div class="bg-white w-full shadow p-8 m-4 flex flex-col rounded">
                 <span class="text-3xl font-semibold">Informacion</span>
                 <div class="mt-4 mb-4 flex flex-col">
-                    <span class="text-xl">Comuna: </span>
-                    <span class="text-xl">Direccion: </span>
-                    <span class="text-xl">Telefono: </span>
+                    <span class="text-xl">Nombre: {{ $negocio->nombre}} </span>
+                    <span class="text-xl">Comuna: {{ $negocio->comuna}} </span>
+                    <span class="text-xl">Direccion: {{ $negocio->direccion}}</span>
+                    <span class="text-xl">Telefono: {{ $negocio->telefono}}</span>
 
                     
                     
@@ -37,17 +38,18 @@
             <div class="bg-white w-full shadow p-8 m-4 flex flex-col rounded">
                 <span class="text-3xl font-semibold">Ofertas</span>
                 <ul class="mb-4 p-2 overflow-x-hidden overflow-y-auto h-96 border-2 border-gray-100 bg-gray-200 rounded-md">
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='2000' oferta='1500'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='1350' oferta='990'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='5490' oferta='2320'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='790' oferta='490'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='490' oferta='150'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='2000' oferta='1500'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='1350' oferta='990'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='5490' oferta='2320'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='790' oferta='490'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='490' oferta='150'></x-producto-profile>
-
+                    
+                    
+                    
+                    @foreach ($postproductos as $postproducto)
+                        
+                        @if ($postproducto->oferta != null)
+                            <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='{{$postproducto->producto->nombre}}' precio='{{ $postproducto->precio }}' oferta='{{ ($postproducto->precio - $postproducto->oferta->descuento)}}'></x-producto-profile>
+                        @endif
+                    @endforeach
+                    
+                    
+                    
 
                 </ul>
                 <button class="rounded w-full mb-8 self-end bg-yellow-600 flex flex-row justify-between hover:bg-yellow-400 p-4 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4" onclick="window.location='{{ url('negocio/administrar/agregar_oferta')}}' ">
@@ -57,14 +59,15 @@
 
                 <span class="text-3xl font-semibold mt-2">Productos</span>
                 <ul class="p-2 mb-8 overflow-x-hidden overflow-y-auto h-96 border-2 border-gray-100 bg-gray-200 rounded-md">
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='2000'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='4990'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='1200'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='320'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='2000'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='4990'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='1200'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='320'></x-producto-profile>
+                    
+                    
+                    @foreach ($postproductos as $postproducto)
+                        @if ($postproducto->oferta == null)
+                        <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='{{$postproducto->producto->nombre}}' precio='{{$postproducto->precio}}'></x-producto-profile>
+                        @endif
+                        
+                    @endforeach
+                    
 
 
                 </ul>
