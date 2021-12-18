@@ -32,3 +32,12 @@ const eliminarReporte = async(id)=>{
     return respuesta.data == "ok";
 
 }
+
+const setEstado = async(reporte)=>{
+    let respuesta = await axios.put(`${reporte.id}/estado`, reporte, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).catch(err => console.error(err));
+    return respuesta.data;
+}

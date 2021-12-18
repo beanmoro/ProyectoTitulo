@@ -69,10 +69,10 @@ const cargarTabla = (reporte) =>{
                 tdEstado.innerText = "Abierto";
                 break;
             case "1":
-                tdEstado.innerText = "Solucionado";
+                tdEstado.innerText = "Respondido";
                 break;
             case "2":
-                tdEstado.innerText = "Cerrado";
+                tdEstado.innerText = "Solucionado";
                 break;
             default:
                 break;

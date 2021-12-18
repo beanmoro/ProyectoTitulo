@@ -1,19 +1,36 @@
 
 const banearUsuario = async function(){
     let id = this.idUsuario;
-    let eliminarbtn = await Swal.fire({title:"Esta seguro de la operacion?",text:"Esta operacion no es reversible"
+    let eliminarbtn = await Swal.fire({title:"Esta seguro de la operacion?",text:"El usuario va a quedar bloqueado de la plataforma"
     , icon: "warning",showCancelButton:true});
     if(eliminarbtn.isConfirmed){
         Swal.fire("La Usuario a bloquear es: " + this.nombreUsuario);
         if(await banUsuario(id)){
             let Usuario = await getUsuarios();
             cargarTabla(Usuario);
-            Swal.fire("Usuario bloqueado", "Se elimino correctamente el Usuario", "info");
+            Swal.fire("Usuario bloqueado", "Se bloqueo correctamente el Usuario", "info");
         }
     }else{
         Swal.fire("Cancelado", "La operacion fue cancelada", "info");
     }
     
+}
+
+const desbanearUsuario = async function(){
+    let id = this.idUsuario;
+    let eliminarbtn = await Swal.fire({title:"Esta seguro de la operacion?",text:"El usuario volvera a estar activo"
+    , icon: "warning",showCancelButton:true});
+    if(eliminarbtn.isConfirmed){
+        Swal.fire("La Usuario a desbloquear es: " + this.nombreUsuario);
+        if(await desbanUsuario(id)){
+            let Usuario = await getUsuarios();
+            cargarTabla(Usuario);
+            Swal.fire("Usuario desbloqueado", "Se ha desbloqueado correctamente el Usuario", "info");
+        }
+    }else{
+        Swal.fire("Cancelado", "La operacion fue cancelada", "info");
+    }
+
 }
 
 const cargarTabla = (usuarios) =>{
@@ -52,6 +69,8 @@ const cargarTabla = (usuarios) =>{
             case "2":
                 tdRol.innerText = "Administrador";
                 break;
+            case "3":
+                tdRol.innerText = "Solicitud registro de negocio";
             default:
                 break;
         }
@@ -59,7 +78,13 @@ const cargarTabla = (usuarios) =>{
 
         let tdAcciones = document.createElement("td");
         tdAcciones.classList.add("px-6","py-4", "whitespace-nowrap");
-
+        
+        let botonDesBan = document.createElement("button");
+        botonDesBan.innerHTML = "<span class='text-md material-icons text-white'>block</span>"; 
+        botonDesBan.classList.add("inline-flex","items-center","px-2", "ml-2" , "shadow-md","py-2" ,"bg-green-600" ,"border" ,"border-transparent" ,"rounded-md" ,"font-semibold", "text-xs" ,"text-white" ,"uppercase" ,"tracking-wrutest", "hover:shadow-lg" ,"hover:bg-green-400" ,"active:bg-green-900" ,"focus:outline-none" ,"focus:border-green-900" ,"focus:ring" ,"ring-green-300" ,"disabled:opacity-25" ,"transform" ,"hover:scale-105" ,"focus:scale-110" ,"transition" ,"ease-in-out" ,"duration-150");
+        botonDesBan.idUsuario = usuarios[i].id;
+        botonDesBan.nombreUsuario = usuarios[i].name;
+        botonDesBan.addEventListener("click",desbanearUsuario);
 
         let botonBanear = document.createElement("button");
         botonBanear.innerHTML = "<span class='text-md material-icons text-white'>block</span>"; 
@@ -76,6 +101,8 @@ const cargarTabla = (usuarios) =>{
         tr.appendChild(tdAcciones);
         if(tdRol.innerText != "Usuario Bloqueado"){
             tdAcciones.appendChild(botonBanear);
+        }else if (tdRol.innerText == "Usuario Bloqueado"){
+            tdAcciones.appendChild(botonDesBan);
         }
         
         

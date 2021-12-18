@@ -26,7 +26,18 @@ use App\Models\User;
 */
 
 
-Route::view("/","home")->name("home");
+Route::get("/",function(){
+    $productos = Producto::latest();
+
+
+    return view('home', [
+        'productos' => $productos->take(10)->get()
+    ]);
+
+})->name("home");
+
+
+
 
 Route::get('/buscar', function () {
     if(Auth::user()->role >= 0){
@@ -46,7 +57,9 @@ Route::get('/buscar', function () {
             'productos' => $productos->get()
         ]);
     }else{
-        return redirect()->route('home');
+
+        return invalidRole();
+        
     }
 })->middleware(['auth'])->name('buscar');
 
@@ -54,7 +67,7 @@ Route::get('/favoritos', function () {
     if(Auth::user()->role >= 0){
         return view('pages.client.favoritos');
     }else{
-        return redirect()->route('home');
+        return invalidRole();
     }
 })->middleware(['auth'])->name('favoritos');
 
@@ -135,7 +148,7 @@ Route::get('/soporte_respuesta', function () {
     if(Auth::user()->role >= 0){
         return view('pages.admin.soporte_respuesta');
     }else{
-        return redirect()->route('home');
+        return invalidRole();
     }
 })->middleware(['auth'])->name('soporte_respuesta');
 
@@ -143,15 +156,15 @@ Route::get('/solicitud_negocio', function () {
     if(Auth::user()->role >= 0){
         return view('pages.admin.solicitud_negocio');
     }else{
-        return redirect()->route('home');
+        return invalidRole();
     }
 })->middleware(['auth'])->name('solicitud_negocio');
 
 Route::get('/soporte_reporte', function () {
-    if(Auth::user()->role >= 0){
+    if(Auth::user()->role >= -1){
         return view('pages.client.soporte_reporte');
     }else{
-        return redirect()->route('home');
+        return invalidRole();
     }
 })->middleware(['auth'])->name('soporte_reporte');
 
@@ -159,7 +172,7 @@ Route::get('/nueva_etiqueta', function () {
     if(Auth::user()->role == 2){
         return view('pages.admin.nueva_etiqueta');
     }else{
-        return redirect()->route('home');
+        return invalidRole();
     }
 })->middleware(['auth'])->name('nueva_etiqueta');
 
@@ -169,7 +182,7 @@ Route::get('/producto', function () {
             'etiquetas' => Etiqueta::latest()->get()
         ]);
     }else{
-        return redirect()->route('home');
+        return invalidRole();
     }
 })->middleware(['auth'])->name('producto');
 
@@ -177,7 +190,7 @@ Route::get('/usuarios', function () {
     if(Auth::user()->role == 2){
         return view('pages.admin.usuarios');
     }else{
-        return redirect()->route('home');
+        return invalidRole();
     }
 })->middleware(['auth'])->name('usuarios');
 
@@ -222,6 +235,7 @@ require __DIR__.'/auth.php';
 
 //Negocios
 Route::post("negocios/post",[NegociosController::class, "crearNegocios"])->name('negocios.post');
+Route::delete("negocios/delete/{negocio}",[NegociosController::class, "eliminarNegocio"])->name('negocios.delete');
 Route::get("negocios/get",[NegociosController::class, "getNegocio"])->name('negocios.get');
 
 //Reportes
@@ -229,6 +243,7 @@ Route::post("reportes/post",[ReportesController::class, "crearReportes"])->name(
 Route::get("reportes/get",[ReportesController::class, "getReporte"])->name('reportes.get');
 Route::get("reportes/get/{rut}", [ReportesController::class, "getReporteRut"])->name('reportes.get.rut');
 Route::patch("reporte/{reporte}/responder", [ReportesController::class, "update"])->name('reportes.responder');
+Route::put("reporte/{reporte}/estado",[ReportesController::class, "setEstado"])->name('reportes.estado');
 Route::post("reportes/delete",[ReportesController::class, "eliminarReporte"])->name('reportes.delete');
 
 //Etiquetas
@@ -244,7 +259,9 @@ Route::post("productos/delete",[ProductosController::class, "eliminarProducto"])
 //Usuarios
 Route::get("usuarios/get",[UsuariosController::class, "getUsuarios"])->name('usuarios.get');
 Route::put("usuarios/ban/{user}",[UsuariosController::class, "banUsuario"])->name('usuarios.ban');
-
+Route::put("usuarios/desban/{user}",[UsuariosController::class, "desbanUsuario"])->name('usuarios.desban');
+Route::put("usuarios/cliente/{user}",[UsuariosController::class, "setUsuarioCliente"])->name('usuarios.cliente');
+Route::put("usuarios/vendedor/{user}",[UsuariosController::class, "setUsuarioVendedor"])->name('usuarios.vendedor');
 
 //Rutas de Relaciones
 
@@ -288,3 +305,13 @@ Route::get('/usuario/{user}/reportes', [UsuariosController::class, 'getReportes'
 Route::post('/usuario/{user}/reporte/remover', [UsuariosController::class, 'removeReporte']);
 
 
+
+function invalidRole(){
+    if(Auth::user()->role == -1){
+
+        return view('pages.banned');
+    }else{
+
+        return redirect()->route('home');
+    }
+}

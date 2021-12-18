@@ -14,3 +14,15 @@ const crearNegocios = async(negocio)=>{
     });
     return respuesta.data;
 };
+
+const eliminarNegocio = async(patente)=>{
+    let respuesta = await axios.delete(`negocios/delete/${patente}`,{patente},{
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    }).catch(err => console.error(err))
+    return respuesta.data == "ok";
+
+}
+
+

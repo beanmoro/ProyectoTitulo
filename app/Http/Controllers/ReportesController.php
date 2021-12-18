@@ -67,9 +67,20 @@ class ReportesController extends Controller
 
         ]);
 
+        $reporte->estado = 1;
+        $reporte->save();
         $reporte->update($attribs);
 
         return back();
+    }
+
+
+    public function setEstado(Reporte $reporte, Request $request){
+
+
+        $reporte->estado = $request->estado;
+        $reporte->save();
+        return $reporte;
     }
 
     //Funciones de Relacion

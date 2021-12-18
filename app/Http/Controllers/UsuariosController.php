@@ -22,6 +22,24 @@ class UsuariosController extends Controller
         $user->save();
         return "ok";
     }
+    public function desbanUsuario(User $user){
+        $user->role = 0;
+        $user->save();
+        return "ok";
+    }
+    
+    public function setUsuarioCliente(User $user){
+        $user->role = 0;
+        $user->save();
+        return $user;
+    }
+
+    public function setUsuarioVendedor(User $user){
+        $user->role = 1;
+        $user->save();
+        return $user;
+    }
+
     //Funciones de Relacion
 
     public function addNegocio(Request $request){

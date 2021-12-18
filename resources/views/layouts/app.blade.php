@@ -26,6 +26,8 @@
                 @include('layouts.seller_navigation')
             <?php elseif(Auth::user()->role == 2): ?>
                 @include('layouts.admin_navigation')
+             <?php elseif(Auth::user()->role == -1): ?>
+                @include('layouts.banned_navigation')
             <?php endif ?>
 
             <!-- Page Heading -->

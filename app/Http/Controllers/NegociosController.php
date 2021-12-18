@@ -40,6 +40,7 @@ class NegociosController extends Controller
 
         ]);
 
+        
         $user = Auth::user();
         $user->role = 3;
         $user->save();
@@ -52,7 +53,19 @@ class NegociosController extends Controller
         $negocio = Negocio::all();
         return $negocio;
     }
+    public function eliminarNegocio(Negocio $negocio){
+        // $input = $request->all();
+        // $patente = $input["patente"];
+        // $rut = $input["rut"];
+        // $usuario = User::where('rut', $rut)->first();
+        // $negocio = Negocio::findOrFail($patente)->first();
+        // $usuario->role = 0;
 
+
+        //$usuario->save();
+        $negocio->delete();
+        return "ok";
+    }
 
     //Funciones de Relacion
 

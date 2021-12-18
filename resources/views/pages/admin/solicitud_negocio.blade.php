@@ -32,6 +32,7 @@
 
     <x-slot name="scripts">
         <script src="{{asset('js/service/negociosService.js')}}"></script>
+        <script src="{{asset('js/service/usuariosService.js')}}"></script>
         <script src="{{asset('js/solicitud_negocio.js')}}"></script> 
     </x-slot>
 
