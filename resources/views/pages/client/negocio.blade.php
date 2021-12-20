@@ -84,31 +84,21 @@
             <div class="bg-white w-full shadow p-8 m-4 flex flex-col rounded">
                 <span class="text-3xl font-semibold">Ofertas</span>
                 <ul class="p-2 overflow-x-hidden overflow-y-auto h-96 border-2 border-gray-100 bg-gray-200 rounded-md">
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='2000' oferta='1500'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='1350' oferta='990'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='5490' oferta='2320'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='790' oferta='490'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='490' oferta='150'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='2000' oferta='1500'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='1350' oferta='990'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='5490' oferta='2320'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='790' oferta='490'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='490' oferta='150'></x-producto-profile>
-
-
+                    @foreach ($postproductos as $postproducto)
+                        
+                        @if ($postproducto->oferta != null)
+                            <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='{{$postproducto->producto->nombre}}' precio='{{ $postproducto->precio }}' oferta='{{ ($postproducto->precio - $postproducto->oferta->descuento)}}'></x-producto-profile>
+                        @endif
+                    @endforeach
                 </ul>
                 <span class="text-3xl font-semibold mt-2">Productos</span>
                 <ul class="p-2 overflow-x-hidden overflow-y-auto h-96 border-2 border-gray-100 bg-gray-200 rounded-md">
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='2000'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='4990'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='1200'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='320'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='2000'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='4990'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='1200'></x-producto-profile>
-                    <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' precio='320'></x-producto-profile>
-
-
+                    @foreach ($postproductos as $postproducto)
+                        @if ($postproducto->oferta == null)
+                        <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='{{$postproducto->producto->nombre}}' precio='{{$postproducto->precio}}'></x-producto-profile>
+                        @endif
+                        
+                    @endforeach
                 </ul>
 
 

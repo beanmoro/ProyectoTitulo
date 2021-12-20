@@ -35,7 +35,7 @@ const cargarTabla = (producto) =>{
         tdMarca.classList.add("px-6","py-4", "whitespace-nowrap");
 
         let tdEtiquetas = document.createElement("td");
-        tdEtiquetas.innerText = producto[i].etiquetas;
+        tdEtiquetas.innerText = producto[i].etiquetas[0];
         tdEtiquetas.classList.add("px-6","py-4", "whitespace-nowrap");
 
         let tdAcciones = document.createElement("td");

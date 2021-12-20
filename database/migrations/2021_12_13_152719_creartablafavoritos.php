@@ -16,7 +16,8 @@ class CrearTablaFavoritos extends Migration
         Schema::create('favoritos', function (Blueprint $table) {
             $table->id();
             $table->string("nombre");
-            $table->string("negocio");
+            $table->string("negocio_patente");
+            $table->foreign("negocio_patente")->references("patente")->on("negocios");
             $table->timestamps();
         });
     }

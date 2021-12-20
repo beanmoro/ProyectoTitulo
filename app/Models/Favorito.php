@@ -9,8 +9,15 @@ class Favorito extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nombre', 'negocio_patente'];
+    
+
     public function usuario(){
 
         return $this->belongsToMany(User::class, "favorito_user", "favorito_id", "user_id");
+    }
+
+    public function negocio(){
+        return $this->belongsTo(Negocio::class);
     }
 }

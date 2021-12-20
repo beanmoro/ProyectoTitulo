@@ -13,13 +13,24 @@ class PostProductosController extends Controller
     //
     public function crearPostProductos(Request $request){
         
-
+       
 
         $request->validate([
-            'producto' => ['unique:postproductos,producto_id'],
             'precio' => ['required', 'numeric', 'gt:0'],
             'stock_referencial' => ['required', 'numeric','gt:0'],
         ]);
+
+        $negocio = Negocio::where('rut', Auth::user()->rut)->first();
+
+        $postproductos = $negocio->postproductos()->get();
+        
+        foreach($postproductos as $p){
+            if ($p->producto->id == $request->producto){
+
+                $msg = Array('Ese producto ya esta agregado al negocio');
+                return redirect()->back()->withErrors($msg);
+            }
+        }
 
         
         $postproducto = new Postproducto();
@@ -28,15 +39,21 @@ class PostProductosController extends Controller
         $postproducto->stock_referencial = $request->stock_referencial;
         $postproducto->save();
 
-        $negocio = Negocio::where('rut', Auth::user()->rut)->first();
-
         $postproducto->negocio()->attach($negocio->patente);
+        
 
 
         return redirect()->route('administrar_negocio');
     }
 
-
+    public function eliminarPostProducto(Request $request){
+        $input = $request->all();
+        $id = $input["id"];
+        $postproducto = Postproducto::findOrFail($id);
+        $postproducto->delete();
+        return "ok";
+    }
+    
     public function getPostProductos(){
         $postproductos = Postproducto::all();
         foreach($postproductos as $postproducto){
@@ -45,6 +62,7 @@ class PostProductosController extends Controller
 
         return $postproductos;
     }
+
 
     //Funciones de Relacion
 

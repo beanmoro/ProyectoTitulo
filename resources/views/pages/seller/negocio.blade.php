@@ -52,8 +52,8 @@
                     
 
                 </ul>
-                <button class="rounded w-full mb-8 self-end bg-yellow-600 flex flex-row justify-between hover:bg-yellow-400 p-4 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4" onclick="window.location='{{ url('negocio/administrar/agregar_oferta')}}' ">
-                    <span class="text-xl font-semibold align-center text-white mr-2">Agregar oferta</span>
+                <button class="rounded w-full mb-8 self-end bg-yellow-600 flex flex-row justify-between hover:bg-yellow-400 p-4 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4" onclick="window.location='{{ url('negocio/administrar/ofertas')}}' ">
+                    <span class="text-xl font-semibold align-center text-white mr-2">Administrar mis ofertas</span>
                     <span class="material-icons text-white">local_offer</span>
                 </button>
 
@@ -73,7 +73,7 @@
                 </ul>
 
                 <button class="rounded w-full mb-8 self-end bg-green-600 flex flex-row justify-between hover:bg-green-400 p-4 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4" onclick="window.location='{{ url('negocio/administrar/agregar_producto')}}' ">
-                    <span class="text-xl font-semibold align-center text-white mr-2">Agregar producto</span>
+                    <span class="text-xl font-semibold align-center text-white mr-2">Administrar mis productos</span>
                     <span class="material-icons text-white">inventory_2</span>
                 </button>
             </div>

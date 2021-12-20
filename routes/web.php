@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\PostProductosController;
 use App\Http\Controllers\OfertasController;
+use App\Http\Controllers\FavoritosController;
 
 
 use App\Models\Producto;
@@ -47,19 +48,55 @@ Route::get("/",function(){
 Route::get('/buscar', function () {
     if(Auth::user()->role >= 0){
         $productos = Producto::latest();
+        $postproductos = Postproducto::latest();
 
-        if(request('producto') != null) {
-            $productos->where('nombre', 'like', '%' . request('producto') . '%')
-            ->orWhere('etiquetas', 'like',  '%' . request('producto') . '%')
-            ->orWhere('marca', 'like',  '%' . request('producto') . '%')->orWhereHas('etiquetas', function($query){
-                return $query->where('nombre', 'like', '%' . request('producto') . '%');
-            });
 
+
+        if(request('producto') != "null") {
+
+            $keywords = explode(' ', request('producto'));
             
+            if(request('producto') != null){
+
+                $postproductos = $postproductos
+                ->whereHas('negocio', function($query) {
+                    
+                    if(request('comuna') != "-1"){
+                        $query->where('comuna', 'like', '%' . request('comuna') . '%');
+
+                    }
+                })
+                ->orWhereHas('producto', function($query) use ($keywords) {
+                    
+                    $firstWord = array_shift($keywords);
+                    $query->where('nombre', 'like', '%' . $firstWord . '%');
+                    foreach($keywords as $keyword){
+                        
+                        $query->orWhere('nombre', 'like', '%' . $keyword . '%');
+                        
+                    }
+                })
+                ->WhereHas('producto', function($query) use ($keywords) {
+                    $query->whereHas('etiquetas',function($equery) use ($keywords) {
+                        $firstWord = array_shift($keywords);
+                        $equery->where('nombre', 'like', '%' . $firstWord . '%');
+                        foreach($keywords as $keyword){
+                            $equery->where( 'nombre', 'like', '%' . $keyword . '%');
+                        }
+                    });
+                });
+                
+            }else{
+                $postproductos->whereHas('negocio', function($query) {
+                    if(request('comuna') != "-1"){
+                        $query->where('comuna', 'like', '%' . request('comuna') . '%');
+                    }
+                });
+            }
         }
     
         return view('pages.client.buscar', [
-            'productos' => $productos->get()
+            'postproductos' => $postproductos->get()
         ]);
     }else{
 
@@ -70,7 +107,14 @@ Route::get('/buscar', function () {
 
 Route::get('/favoritos', function () {
     if(Auth::user()->role >= 0){
-        return view('pages.client.favoritos');
+
+        $usuario = User::where('rut', Auth::user()->rut)->first();
+        
+        $favoritos = $usuario->favoritos()->get();
+
+        return view('pages.client.favoritos',[
+            'favoritos' => $favoritos
+        ]);
     }else{
         return invalidRole();
     }
@@ -136,10 +180,11 @@ Route::get('/negocio/administrar/agregar_producto', function(){
 
 })->middleware(['auth'])->name('agregar_postproducto');
 
-Route::get('/negocio/administrar/agregar_oferta', function(){
+Route::get('/negocio/administrar/ofertas', function(){
     if(Auth::user()->role >= 1){
 
-        $postproductos = PostProductosController::getPostProductos();
+        $negocio = Negocio::where('rut', Auth::user()->rut)->first();
+        $postproductos = $negocio->postproductos()->get();
 
         return view('pages.seller.agregar_oferta', [
             'postproductos' => $postproductos
@@ -150,13 +195,21 @@ Route::get('/negocio/administrar/agregar_oferta', function(){
     }
 
 
-})->middleware(['auth'])->name('agregar_oferta');
+})->middleware(['auth'])->name('ofertas');
 
 Route::get('/negocio/{patente}', function ($patente) {
     if(Auth::user()->role >= 0){
+
+        $negocio = Negocio::findOrFail($patente);
+        $postproductos = $negocio->postproductos()->get();
+        //$ofertas = OfertasController::getOfertas();
+
+
         return view('pages.client.negocio', [
 
-            'negocio' => Negocio::findOrFail($patente)
+
+            'negocio' => Negocio::findOrFail($patente),
+            'postproductos' => $postproductos,
         ]);
 
     }else{
@@ -188,6 +241,20 @@ Route::get('/soporte_reporte', function () {
         return invalidRole();
     }
 })->middleware(['auth'])->name('soporte_reporte');
+
+
+Route::get('/negocio/{patente}/agregar_favorito', function ($patente) {
+    if(Auth::user()->role >= -1){
+
+        $negocio = Negocio::findOrFail($patente);
+
+        return view('pages.client.agregar_favorito',[
+            'negocio' => $negocio
+        ]);
+    }else{
+        return invalidRole();
+    }
+})->middleware(['auth'])->name('agregar_favorito');
 
 Route::get('/nueva_etiqueta', function () {
     if(Auth::user()->role == 2){
@@ -281,6 +348,7 @@ Route::get("postproductos/get",[PostProductosController::class, "getPostProducto
 //Ofertas
 Route::post("ofertas/post", [OfertasController::class, "crearOferta"])->name('oferta.post');
 Route::get("ofertas/get", [OfertasController::class, "getOfertas"])->name('oferta.get');
+Route::post("ofertas/delete", [OfertasController::class, "eliminarOferta"])->name('oferta.delete');
 
 //Productos
 Route::post("productos/post",[ProductosController::class, "crearProductos"])->name('productos.post');
@@ -293,6 +361,9 @@ Route::put("usuarios/ban/{user}",[UsuariosController::class, "banUsuario"])->nam
 Route::put("usuarios/desban/{user}",[UsuariosController::class, "desbanUsuario"])->name('usuarios.desban');
 Route::put("usuarios/cliente/{user}",[UsuariosController::class, "setUsuarioCliente"])->name('usuarios.cliente');
 Route::put("usuarios/vendedor/{user}",[UsuariosController::class, "setUsuarioVendedor"])->name('usuarios.vendedor');
+
+//Favoritos
+Route::post("favoritos/post", [FavoritosController::class, "crearFavorito"])->name('favoritos.post');
 
 //Rutas de Relaciones
 
