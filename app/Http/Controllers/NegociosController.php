@@ -124,7 +124,11 @@ class NegociosController extends Controller
     }
 
     public function getFeedback(Negocio $negocio){
-        return $negocio->feedbacks()->get();
+        $feedbacks = $negocio->feedbacks()->get();
+        foreach($feedbacks as $feedback){
+            $feedback->load('usuario');
+        }
+        return $feedbacks;
     }
 
     public function removeFeedback(Negocio $negocio, Request $request){

@@ -32,7 +32,7 @@
                 <ul class="p-2 overflow-x-hidden overflow-y-auto h-screen border-2 border-gray-100 bg-gray-200 rounded-md">
                     @foreach ($feedbacks as $feedback)
 
-                        <x-comentario usuario="{{$feedback->autor}}" calificacion="{{$feedback->calificacion}}" fecha="{{$feedback->created_at}}">{{$feedback->comentario}}</x-comentario>
+                        <x-comentario usuario="{{$feedback->usuario->name}}" calificacion="{{$feedback->calificacion}}" fecha="{{$feedback->created_at}}">{{$feedback->comentario}}</x-comentario>
                     @endforeach
                 </ul>
             </div>

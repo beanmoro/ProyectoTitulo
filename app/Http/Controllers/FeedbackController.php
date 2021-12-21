@@ -18,20 +18,27 @@ class FeedbackController extends Controller
             'comentario' => ['required', 'string', 'max:255'],
         ]);
 
-        //dd($request);
-        $feedback = new Feedback();
-        $feedback->autor = Auth::user()->name;
-        $feedback->calificacion = $request->calificacion;
-        $feedback->comentario = $request->comentario;
-        $feedback->save();
-
-        
         $negocio = Negocio::findOrFail($request->patente);
+        $negocio_feedback = $negocio->feedbacks()->where('usuario_id', Auth::user()->id)->first();
 
-        $feedback->negocios()->attach($negocio->patente);
+
+        if($negocio_feedback == null){
+            $feedback = new Feedback();
+            $feedback->usuario_id = Auth::user()->id;
+            $feedback->calificacion = $request->calificacion;
+            $feedback->comentario = $request->comentario;
+            $feedback->save();
+
+            $feedback->negocios()->attach($negocio->patente);
+        }else{
+
+            $negocio_feedback->calificacion = $request->calificacion;
+            $negocio_feedback->comentario = $request->comentario;
+            $negocio_feedback->save();
+        }
         
 
-        //return redirect()->route('buscar');
+        return redirect()->route('negocio', $negocio->patente);
     }
 
 

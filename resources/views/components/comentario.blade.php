@@ -18,6 +18,6 @@
     <p class="overflow-ellipsis mt-2">{{ $slot }}</p>
 
     <div class="flex flex-row justify-end mt-2">
-        <span class="font-semibold">{{$fecha}}</span>
+        <span class="font-semibold">{{substr($fecha,0, 10)}}</span>
     </div>
 </li>

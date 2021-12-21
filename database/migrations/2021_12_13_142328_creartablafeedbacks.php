@@ -17,7 +17,7 @@ class CrearTablaFeedbacks extends Migration
             $table->id();
             $table->string("comentario");
             $table->boolean("calificacion");
-            $table->string("autor");
+            $table->bigInteger("user_id");
             $table->timestamps();
         });
     }
