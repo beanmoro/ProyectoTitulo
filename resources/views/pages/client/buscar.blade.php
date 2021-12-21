@@ -9,8 +9,8 @@
         <form method="GET" action="#">
             <div class="bg-white m-4 p-8 shadow flex">
             
-                <input name="producto" class="w-full rounded p-2" type="text" placeholder="Intenta buscar 'Leche'" value="{{ request('producto') }}">
-                <select name="comuna" id="comuna" class="w-48 rounded p-2" value="{{ request('comuna') }}">
+                <input name="producto" class="w-full rounded-l-lg p-2 border-transparent bg-gray-200 shadow-inner" type="text" placeholder="Intenta buscar 'Leche'" value="{{ request('producto') }}">
+                <select name="comuna" id="comuna" class="w-48 rounded-r-lg p-2 border-transparent bg-gray-200 shadow-inner" value="{{ request('comuna') }}">
                     <option value="-1">Ninguna</option>
                     <option value="quillota">Quillota</option>
                     <option value="limache">Limache</option>
@@ -26,7 +26,6 @@
 
             </div>
         </form>
-
 
         <ul class="bg-white m-4 p-8 shadow flex flex-col">
 

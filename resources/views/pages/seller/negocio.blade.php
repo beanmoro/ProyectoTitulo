@@ -30,9 +30,10 @@
 
                 <span class="mt-8 text-3xl font-semibold ">Comentarios</span>
                 <ul class="p-2 overflow-x-hidden overflow-y-auto h-screen border-2 border-gray-100 bg-gray-200 rounded-md">
+                    @foreach ($feedbacks as $feedback)
 
-                    <x-comentario usuario="Diego Canelo V." calificacion=0 fecha="30/10/2021">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus tortor orci, at convallis leo faucibus nec. Vestibulum vitae nunc id lorem porta efficitur. Morbi eget ligula libero. Maecenas quis ipsum et tellus pellentesque tincidunt eget vitae ante. Aliquam sagittis nulla ex, eu molestie purus feugiat ac. Duis tristique orci eu varius bibendum. Nunc commodo lacus elit, nec accumsan neque eleifend vitae. Vivamus suscipit quam id tincidunt interdum. Donec consectetur egestas molestie. Ut consequat lacinia porta. Ut in nibh eleifend, semper nunc eu, ornare sapien. </x-comentario>
-                    <x-comentario usuario="Benjamin Moraga R." calificacion=1 fecha="31/10/2021">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus tortor orci, at convallis leo faucibus nec. Vestibulum vitae nunc id lorem porta efficitur. Morbi eget ligula libero. Maecenas quis ipsum et tellus pellentesque tincidunt eget vitae ante. Aliquam sagittis nulla ex, eu molestie purus feugiat ac. Duis tristique orci eu varius bibendum. Nunc commodo lacus elit, nec accumsan neque eleifend vitae. Vivamus suscipit quam id tincidunt interdum. Donec consectetur egestas molestie. Ut consequat lacinia porta. Ut in nibh eleifend, semper nunc eu, ornare sapien. </x-comentario>
+                        <x-comentario usuario="{{$feedback->autor}}" calificacion="{{$feedback->calificacion}}" fecha="{{$feedback->created_at}}">{{$feedback->comentario}}</x-comentario>
+                    @endforeach
                 </ul>
             </div>
             <div class="bg-white w-full shadow p-8 m-4 flex flex-col rounded">
@@ -72,7 +73,7 @@
 
                 </ul>
 
-                <button class="rounded w-full mb-8 self-end bg-green-600 flex flex-row justify-between hover:bg-green-400 p-4 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4" onclick="window.location='{{ url('negocio/administrar/agregar_producto')}}' ">
+                <button class="rounded w-full mb-8 self-end bg-green-600 flex flex-row justify-between hover:bg-green-400 p-4 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4" onclick="window.location='{{ url('negocio/administrar/productos')}}' ">
                     <span class="text-xl font-semibold align-center text-white mr-2">Administrar mis productos</span>
                     <span class="material-icons text-white">inventory_2</span>
                 </button>

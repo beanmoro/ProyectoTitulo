@@ -23,7 +23,7 @@ class FavoritosController extends Controller
 
         $usuario = User::Where('rut', Auth::user()->rut)->first();
 
-        $favorito->usuario()->attach($usuario->id);
+        $favorito->usuarios()->attach($usuario->id);
 
         return redirect()->route('favoritos');
     }
@@ -35,18 +35,15 @@ class FavoritosController extends Controller
         return $favoritos;
     }
 
-    public function eliminarFavorito(Request $request){
+    public function eliminarFavorito(Favorito $favorito){
 
-        $input = $request->all();
-        $id = $input["id"];
-        $favorito = Favorito::findOrFail($id);
         $usuarios = $favorito->usuarios()->get();
         foreach($usuarios as $usuario){
-            $favorito->usuario()->detach($usuario->id);
+            $favorito->usuarios()->detach($usuario->id);
         }
 
         $favorito->delete();
-        return "ok";
+        return redirect()->route('favoritos');
 
     }
 

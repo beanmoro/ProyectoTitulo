@@ -22,7 +22,7 @@ class Negocio extends Model
         return $this->belongsToMany(Postproducto::class, "negocio_postproducto", "negocio_id", "postproducto_id");
     }
 
-    public function feedback(){
-        return $this->belongsToMany(Feedback::class, "feedback_negocio", "feedback_id", "negocio_id");
+    public function feedbacks(){
+        return $this->belongsToMany(Feedback::class, "feedback_negocio", "negocio_id", "feedback_id");
     }
 }

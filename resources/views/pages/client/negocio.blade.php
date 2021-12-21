@@ -18,65 +18,97 @@
                     <span class="text-xl">Telefono: {{ $negocio->telefono }}</span>
 
                     
-                    
 
                 </div>
                 <button class="rounded bg-blue-600 flex flex-row justify-between hover:bg-blue-400 p-4 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4">
                     <span class="text-xl font-semibold align-center text-white">Contactar</span>
                     <span class="material-icons text-white">textsms</span>
                 </button>
-                <button class=" mt-2 rounded bg-yellow-600 flex flex-row justify-between hover:bg-yellow-400 p-4 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4">
-                    <span class="text-xl font-semibold align-center text-white">Agregar a Favoritos</span>
-                    <span class="material-icons text-white">star</span>
-                </button>
 
+               
+                {{-- @if ($favorito->negocio_patente == $negocio->patente)
+                    
+                @else --}}
+
+                @if ($negocio->patente == $minegocio->patente)
+
+                    <button class=" mt-2 text-gray-100 rounded bg-gray-300 flex flex-row justify-between p-4 pr-4 pl-4" disabled>
+                        <span class="text-xl font-semibold align-center text-white">Agregar a Favoritos</span>
+                        <span class="material-icons text-white">star</span>
+                    </button>
+
+                @else
+                    
+                    
+                    @if ($favorito != "[]")
+                        <button class=" mt-2 rounded bg-red-600 flex flex-row justify-between hover:bg-red-400 p-4 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4" onclick="confirmarEliminacion('{{$favorito[0]->id}}')">
+                            <span class="text-xl font-semibold align-center text-white">Quitar de Favoritos</span>
+                            <span class="material-icons text-white">star</span>
+                        </button>
+    
+                        <form id="formid_{{$favorito[0]->id}}" method="POST" action="{{ route('favoritos.delete', $favorito[0]->id)}}">
+                            @csrf
+                            @method('delete')
+                        </form>
+
+                    @else
+                        <button class=" mt-2 rounded bg-yellow-600 flex flex-row justify-between hover:bg-yellow-400 p-4 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4" onclick="window.location='{{ url('negocio/' . $negocio->patente .'/agregar_favorito')}}'">
+                            <span class="text-xl font-semibold align-center text-white">Agregar a Favoritos</span>
+                            <span class="material-icons text-white">star</span>
+                        </button>
+
+
+
+
+                    @endif
+                
+                @endif
+
+                {{-- @endif --}}
+
+                    
+                
+                
                 <span class="text-3xl font-semibold mt-4">Comentarios</span>
                 <ul class="p-2 overflow-x-hidden overflow-y-auto h-screen border-2 border-gray-100 bg-gray-200 rounded-md">
+                @foreach ($feedbacks as $feedback)
 
-                    <x-comentario usuario="Diego Canelo V." calificacion=0 fecha="30/10/2021">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus tortor orci, at convallis leo faucibus nec. Vestibulum vitae nunc id lorem porta efficitur. Morbi eget ligula libero. Maecenas quis ipsum et tellus pellentesque tincidunt eget vitae ante. Aliquam sagittis nulla ex, eu molestie purus feugiat ac. Duis tristique orci eu varius bibendum. Nunc commodo lacus elit, nec accumsan neque eleifend vitae. Vivamus suscipit quam id tincidunt interdum. Donec consectetur egestas molestie. Ut consequat lacinia porta. Ut in nibh eleifend, semper nunc eu, ornare sapien. </x-comentario>
-                    <x-comentario usuario="Benjamin Moraga R." calificacion=1 fecha="31/10/2021">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus tortor orci, at convallis leo faucibus nec. Vestibulum vitae nunc id lorem porta efficitur. Morbi eget ligula libero. Maecenas quis ipsum et tellus pellentesque tincidunt eget vitae ante. Aliquam sagittis nulla ex, eu molestie purus feugiat ac. Duis tristique orci eu varius bibendum. Nunc commodo lacus elit, nec accumsan neque eleifend vitae. Vivamus suscipit quam id tincidunt interdum. Donec consectetur egestas molestie. Ut consequat lacinia porta. Ut in nibh eleifend, semper nunc eu, ornare sapien. </x-comentario>
+                     <x-comentario usuario="{{$feedback->autor}}" calificacion="{{$feedback->calificacion}}" fecha="{{$feedback->created_at}}">{{$feedback->comentario}}</x-comentario>
+                @endforeach
+                    
                 </ul>
-                <div class="p-4">
-                    <form method="POST" action="#">
-                        @csrf
-            
-                        <div class="mt-4">
-                            <x-label for="comentario" :value="__('Comentario')" />
-                            <x-textarea name="comentario" id="text" class="block mt-1 w-auto" ></x-textarea>
-                        </div>
-                        
-                        {{-- <div class="mt-4">
-                            <x-label for="" :value="__('Calificacion')" />
-                            <div class="flex w-full justify-start content-center">
-                                <div>
-                                    <input checked type="radio" name="calificacion" id="megusta"  class="mb-3" />
-                                    <span class="material-icons text-green-500" for="megusta">thumb_up</span>
-                                </div>
-                                <div class="ml-4">
-                                    <input name="calificacion" id="nomegusta" type="radio" class="mb-3" />
-                                    <span class="material-icons text-red-500" for="nomegusta">thumb_down</span>
-                                </div>
+                @if ($negocio->patente != $minegocio->patente)
+                    <div class="p-4">
+                        <form method="POST" action="{{route('feedback.post')}}">
+                            @csrf
+                
+                            <div class="mt-4">
+                                <x-label for="comentario" :value="__('Comentario')" />
+                                <x-textarea name="comentario" id="text" class="block mt-1 w-auto" ></x-textarea>
                             </div>
-                        </div> --}}
-            
-                        <div class="flex item-center justify-end mt-2">
+                            
+                            
+                            <input id="patente" name="patente" type="text" class="hidden" value="{{ $negocio->patente}}">
 
-                            <div class="flex w-full justify-start content-center">
-                                <div>
-                                    <input checked type="radio" name="calificacion" id="megusta"  class="mb-3" />
-                                    <span class="material-icons text-green-500" for="megusta">thumb_up</span>
+                            <div class="flex item-center justify-end mt-2">
+
+                                <div class="flex w-full justify-start content-center">
+                                    <div>
+                                        <input type="radio" id="megusta"  name="calificacion"  class="mb-3" value="1" />
+                                        <span class="material-icons text-green-500" for="megusta">thumb_up</span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <input type="radio" class="mb-3"  name="calificacion" value="0" />
+                                        <span class="material-icons text-red-500" for="nomegusta">thumb_down</span>
+
+                                    </div>
                                 </div>
-                                <div class="ml-4">
-                                    <input name="calificacion" id="nomegusta" type="radio" class="mb-3" />
-                                    <span class="material-icons text-red-500" for="nomegusta">thumb_down</span>
-                                </div>
+                                <x-button class="ml-4 ">{{ __('Comentar')}}</x-button>
                             </div>
-                            <x-button class="ml-4 ">{{ __('Comentar')}}</x-button>
-                        </div>
-            
-            
-                    </form>
-                </div>
+                
+                        </form>
+                    </div>
+                @endif
 
 
             </div>
@@ -109,6 +141,7 @@
     </x-slot>
 
     <x-slot name="scripts">
+        <script src="{{asset('js/favorito.js')}}"></script>
     </x-slot>
 
 </x-app-layout>

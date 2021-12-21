@@ -44,12 +44,9 @@ class OfertasController extends Controller
     }
 
 
-    public function eliminarOferta(Request $request){
-        $input = $request->all();
-        $id = $input["id"];
-        $ofertas = Oferta::findOrFail($id);
-        $ofertas->delete();
-        return "ok";
+    public function eliminarOferta(Oferta $oferta){
+        $oferta->delete();
+        return redirect()->route('ofertas');
     }
 
 }

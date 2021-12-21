@@ -12,9 +12,9 @@ class Favorito extends Model
     protected $fillable = ['nombre', 'negocio_patente'];
     
 
-    public function usuario(){
+    public function usuarios(){
 
-        return $this->belongsToMany(User::class, "favorito_user", "favorito_id", "user_id");
+        return $this->belongsToMany(User::class, "favorito_user",  "favorito_id", "user_id");
     }
 
     public function negocio(){

@@ -43,7 +43,7 @@ class User extends Authenticatable
     }
 
     public function favoritos(){
-        return $this->belongsToMany(Favorito::class, "favorito_user", "favorito_id", "user_id");
+        return $this->belongsToMany(Favorito::class, "favorito_user",  "user_id","favorito_id");
     }
 
     public function reportes(){

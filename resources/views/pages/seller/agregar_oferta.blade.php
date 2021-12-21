@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <x-label for="" :value="__('Mi Producto')" />
+                        <x-label for=  :value="__('Mi Producto')" />
 
                     </div>
         
@@ -48,15 +48,38 @@
 
             <div class="bg-white m-4 p-8 rounded shadow w-full">
                 <span class="text-2xl font-semibold">Mis Ofertas</span>
+                
                 <table class="mt-4 p-2 table-fixed rounded-md min-w-full divide-y divide-gray-200 shadow-lg">
                     <thead class="bg-gray-50">
                         <tr>
                             <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Producto</td>
                             <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Descuento</td>
-                            <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Acciones</td>
-                        </tr>
+                            <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Acciones</td>  
+                        </tr>   
                     </thead>
                     <tbody id="tbody-oferta" class="divide-y divide-gray-200">
+                    @foreach ($postproductos as $postproducto)
+                        
+                        @if ($postproducto->oferta != null)
+                        <tr>
+                            <td id="tbody-producto" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">{{$postproducto->producto->nombre}}</td>
+                            <td id="tbody-descuento" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">{{($postproducto->oferta->descuento)}}</td>
+                            <td id="tbody-button" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                <button onclick="confirmarEliminacion('{{$postproducto->oferta->id}}')" class="inline-flex items-center px-2  shadow-md py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:shadow-lg hover:bg-red-400 active:bg-red-900 focus:outline-none focus:border-red-900 focus:ring ring-red-300 disabled:opacity-25 transform hover:scale-105 focus:scale-110 transition ease-in-out duration-150">
+                                    <span class='text-md material-icons text-white'>delete</span>
+                                </button>    
+                                <form id="formid_{{$postproducto->oferta->id}}" method="post" action="{{route('oferta.delete', $postproducto->oferta->id)}}">
+                                    @csrf
+                                    @method('delete')
+                                    
+                                </form>
+                                
+                            </td>
+                            
+                            <!-- <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='$postproducto->producto->nombre' precio=' $postproducto->precio ' oferta='($postproducto->precio - $postproducto->oferta->descuento)'></x-producto-profile> -->  
+                        </tr>
+                        @endif
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -67,8 +90,9 @@
     </x-slot>
 
     <x-slot name="scripts">
-        <script src="{{asset('js/service/ofertasService.js')}}"></script>
-        <script src="{{asset('js/oferta.js')}}"></script>
+    <script src="{{asset('js/favorito.js')}}"></script>
+        <!-- <script src="{{asset('js/service/ofertasService.js')}}"></script>
+         -->
     </x-slot>
 
 </x-app-layout>

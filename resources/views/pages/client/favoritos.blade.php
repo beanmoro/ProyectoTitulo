@@ -10,24 +10,16 @@
     <ul class="m-4 p-8 bg-white shadow flex flex-col">
 
         @foreach ($favoritos as $favorito)
-            <x-favorite-card negocio="{{$favorito->nombre}}" location="{{$favorito->negocio->comuna}}"></x-favorite-card>
 
+            <x-favorite-card negocio="{{$favorito->nombre}}" location="{{$favorito->negocio->comuna}}" patente="{{$favorito->negocio_patente}}" id="{{$favorito->id}}"></x-favorite-card>
+            
         @endforeach
-        {{-- <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
-        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
-        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
-        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
-        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
-        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
-        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card>
-        <x-favorite-card negocio="Donde juanita" location="Quillota"></x-favorite-card> --}}
-
-
     </ul>
        
 
     </x-slot>
     <x-slot name="scripts">
+        <script src="{{asset('js/favorito.js')}}"></script>
     </x-slot>
 </x-app-layout>
 

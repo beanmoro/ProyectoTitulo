@@ -118,19 +118,19 @@ class NegociosController extends Controller
 
         $negocio = Negocio::findOrFail($request->patente);
         $feedback = Feedback::findOrFail($request->feedback_id);
-        $negocio->feedback()->attach($feedback->id);
+        $negocio->feedbacks()->attach($feedback->id);
         return $negocio;
 
     }
 
     public function getFeedback(Negocio $negocio){
-        return $negocio->feedback()->get();
+        return $negocio->feedbacks()->get();
     }
 
     public function removeFeedback(Negocio $negocio, Request $request){
         
         $feedback = Feedback::findOrFail($request->feedback_id);
-        $negocio->feedback()->detach($feedback->id);
+        $negocio->feedbacks()->detach($feedback->id);
         return $negocio;
     }
 

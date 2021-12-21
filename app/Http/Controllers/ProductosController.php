@@ -35,8 +35,11 @@ class ProductosController extends Controller
     }
 
     public function getProducto(){
-        $producto = Producto::all();
-        return $producto;
+        $productos = Producto::all();
+        foreach($productos as $producto){
+            $producto->load("etiquetas");
+        }
+        return $productos;
     }
 
     public function eliminarProducto(Request $request){

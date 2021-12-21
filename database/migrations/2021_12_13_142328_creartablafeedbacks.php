@@ -17,8 +17,7 @@ class CrearTablaFeedbacks extends Migration
             $table->id();
             $table->string("comentario");
             $table->boolean("calificacion");
-            $table->string("rut");
-            $table->foreign("rut")->references("rut")->on("users");
+            $table->string("autor");
             $table->timestamps();
         });
     }

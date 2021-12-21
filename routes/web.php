@@ -10,7 +10,7 @@ use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\PostProductosController;
 use App\Http\Controllers\OfertasController;
 use App\Http\Controllers\FavoritosController;
-
+use App\Http\Controllers\FeedbackController;
 
 use App\Models\Producto;
 use App\Models\Negocio;
@@ -49,6 +49,7 @@ Route::get('/buscar', function () {
     if(Auth::user()->role >= 0){
         $productos = Producto::latest();
         $postproductos = Postproducto::latest();
+
 
 
 
@@ -137,12 +138,14 @@ Route::get('/negocio/administrar', function(){
         $negocio = Negocio::where('rut', Auth::user()->rut)->first();
         $postproductos = $negocio->postproductos()->get();
         $ofertas = OfertasController::getOfertas();
+        $feedbacks = $negocio->feedbacks()->get();
 
 
         return view('pages.seller.negocio', [
             'negocio' => $negocio,
             'postproductos' => $postproductos,
             'ofertas' => $ofertas,
+            'feedbacks' => $feedbacks
         ]);
     }else{
 
@@ -166,11 +169,14 @@ Route::get('/negocio/editar', function(){
 
 })->middleware(['auth'])->name('editar_negocio');
 
-Route::get('/negocio/administrar/agregar_producto', function(){
+Route::get('/negocio/administrar/productos', function(){
     if(Auth::user()->role >= 1){
-
+        $negocio = Negocio::where('rut', Auth::user()->rut)->first();
+        $postproductos = $negocio->postproductos()->get();
+        
         return view('pages.seller.agregar_producto',[
-            'productos' => Producto::latest()->get()
+            'productos' => Producto::latest()->get(),
+            'postproductos' => $postproductos
         ]);
     }else{
 
@@ -178,7 +184,7 @@ Route::get('/negocio/administrar/agregar_producto', function(){
     }
 
 
-})->middleware(['auth'])->name('agregar_postproducto');
+})->middleware(['auth'])->name('productos');
 
 Route::get('/negocio/administrar/ofertas', function(){
     if(Auth::user()->role >= 1){
@@ -200,16 +206,24 @@ Route::get('/negocio/administrar/ofertas', function(){
 Route::get('/negocio/{patente}', function ($patente) {
     if(Auth::user()->role >= 0){
 
+        $usuario = User::where('rut', Auth::user()->rut)->first();
         $negocio = Negocio::findOrFail($patente);
+        $minegocio = Negocio::where('rut', Auth::user()->rut)->first();
         $postproductos = $negocio->postproductos()->get();
+        //dd($feedbacks);
+        $favorito = $usuario->favoritos()->where('negocio_patente', $patente)->get();
         //$ofertas = OfertasController::getOfertas();
-
+        $feedbacks = $negocio->feedbacks()->get();
 
         return view('pages.client.negocio', [
 
 
             'negocio' => Negocio::findOrFail($patente),
             'postproductos' => $postproductos,
+            'favorito' => $favorito,
+            'feedbacks' => $feedbacks,
+            'minegocio' => $minegocio
+            
         ]);
 
     }else{
@@ -247,10 +261,22 @@ Route::get('/negocio/{patente}/agregar_favorito', function ($patente) {
     if(Auth::user()->role >= -1){
 
         $negocio = Negocio::findOrFail($patente);
+        $minegocio = Negocio::where('rut', Auth::user()->rut)->first();
 
-        return view('pages.client.agregar_favorito',[
-            'negocio' => $negocio
-        ]);
+
+        if($patente == $minegocio->patente){
+
+            return redirect()->route('administrar_negocio');
+
+        }else{
+
+            
+            return view('pages.client.agregar_favorito',[
+                'negocio' => $negocio
+            ]);
+        }
+
+
     }else{
         return invalidRole();
     }
@@ -343,12 +369,13 @@ Route::post("etiquetas/delete",[EtiquetasController::class, "eliminarEtiqueta"])
 //PostProductos
 Route::post("postproductos/post",[PostProductosController::class, "crearPostProductos"])->name('postproductos.post');
 Route::get("postproductos/get",[PostProductosController::class, "getPostProductos"])->name('postproductos.get');
+Route::delete("postproductos/delete/{postproducto}", [PostProductosController::class, "eliminarPostProducto"])->name('postproductos.delete');
 
 
 //Ofertas
 Route::post("ofertas/post", [OfertasController::class, "crearOferta"])->name('oferta.post');
 Route::get("ofertas/get", [OfertasController::class, "getOfertas"])->name('oferta.get');
-Route::post("ofertas/delete", [OfertasController::class, "eliminarOferta"])->name('oferta.delete');
+Route::delete("ofertas/delete/{oferta}", [OfertasController::class, "eliminarOferta"])->name('oferta.delete');
 
 //Productos
 Route::post("productos/post",[ProductosController::class, "crearProductos"])->name('productos.post');
@@ -364,6 +391,12 @@ Route::put("usuarios/vendedor/{user}",[UsuariosController::class, "setUsuarioVen
 
 //Favoritos
 Route::post("favoritos/post", [FavoritosController::class, "crearFavorito"])->name('favoritos.post');
+Route::delete("favoritos/delete/{favorito}", [FavoritosController::class, "eliminarFavorito"])->name('favoritos.delete');
+
+//Feedback
+Route::post("feedback/post", [FeedbackController::class, "crearFeedback"])->name('feedback.post');
+Route::get("feedback/get",[FeedbackController::class, "getFeedback"])->name('feedback.get');
+
 
 //Rutas de Relaciones
 

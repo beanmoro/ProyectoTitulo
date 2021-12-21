@@ -21,7 +21,7 @@ const cargarTabla = (producto) =>{
     tbody.innerHTML = "";
     for(let i=0; i < producto.length; ++i){
         let tr = document.createElement("tr");
-
+        
         let tdNombre = document.createElement("td");
         tdNombre.innerText = producto[i].nombre;
         tdNombre.classList.add("px-6","py-4", "whitespace-nowrap");
@@ -35,8 +35,22 @@ const cargarTabla = (producto) =>{
         tdMarca.classList.add("px-6","py-4", "whitespace-nowrap");
 
         let tdEtiquetas = document.createElement("td");
-        tdEtiquetas.innerText = producto[i].etiquetas[0];
+        tdEtiquetas.innerText = "";
+        etiquetasArray = producto[i].etiquetas;
+        if (etiquetasArray.length != 1){
+            for(let j=0; j < etiquetasArray.length; ++j){
+                tdEtiquetas.innerText += etiquetasArray[j].nombre + ", ";
+                
+            }
+            let eti = tdEtiquetas.innerText.substring(0, tdEtiquetas.innerText.length - 2);
+            tdEtiquetas.innerText = eti;
+        }else{
+            tdEtiquetas.innerText = producto[i].etiquetas[0].nombre;
+        }
+        
         tdEtiquetas.classList.add("px-6","py-4", "whitespace-nowrap");
+        
+        
 
         let tdAcciones = document.createElement("td");
         tdAcciones.classList.add("px-6","py-4", "whitespace-nowrap");

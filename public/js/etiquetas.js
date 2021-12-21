@@ -56,6 +56,4 @@ const cargarTabla = (etiqueta) =>{
 document.addEventListener("DOMContentLoaded" , async()=>{
     let etiqueta = await getEtiqueta();
     cargarTabla(etiqueta);
-
-
 });

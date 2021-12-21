@@ -15,9 +15,8 @@ const deleteOferta = async function(){
     }
     
 }
-const cargarTabla = (oferta) =>{
+const cargarTabla = () =>{
     let tbody = document.querySelector("#tbody-oferta");
-    tbody.innerHTML = "";
     for(let i=0; i < oferta.length; ++i){
         let tr = document.createElement("tr");
         
@@ -57,7 +56,6 @@ const cargarTabla = (oferta) =>{
 
 
 document.addEventListener("DOMContentLoaded" , async()=>{
-    let oferta = await getOfertas();
-    console.log(oferta);
-    cargarTabla(oferta);
+    postproducto = await getPostProducto();
+    cargarTabla(postproducto);
 });

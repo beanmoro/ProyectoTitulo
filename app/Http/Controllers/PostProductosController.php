@@ -46,12 +46,18 @@ class PostProductosController extends Controller
         return redirect()->route('administrar_negocio');
     }
 
-    public function eliminarPostProducto(Request $request){
-        $input = $request->all();
-        $id = $input["id"];
-        $postproducto = Postproducto::findOrFail($id);
+    public function eliminarPostProducto(Postproducto $postproducto){
+        $negocios = $postproducto->negocio();
+
+        foreach($negocios as $negocio){
+
+            $postproducto->negocio()->detach($negocio->patente);
+        }
+        
+        
         $postproducto->delete();
-        return "ok";
+        return redirect()->route('productos');
+
     }
     
     public function getPostProductos(){
