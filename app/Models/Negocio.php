@@ -12,6 +12,7 @@ class Negocio extends Model
     protected $guarded = [];
     protected $table = 'negocios';
     protected $primaryKey = 'patente';
+    public $incrementing = false;
 
     public function usuario(){
 

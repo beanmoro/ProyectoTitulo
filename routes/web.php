@@ -333,7 +333,7 @@ Route::get('/negocio/{patente}/agregar_favorito', function ($patente) {
         $minegocio = Negocio::where('rut', Auth::user()->rut)->first();
 
 
-        if($patente == $minegocio->patente){
+        if($minegocio !=null && $patente == $minegocio->patente){
 
             return redirect()->route('administrar_negocio');
 

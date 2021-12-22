@@ -18,6 +18,11 @@
     <p class="overflow-ellipsis mt-2">{{ $slot }}</p>
 
     <div class="flex flex-row justify-end mt-2">
-        <span class="font-semibold">{{substr($fecha,0, 10)}}</span>
+        @php
+            $ar_fecha = explode('-', substr($fecha, 0, 10));
+            $fecha_f = $ar_fecha[2] . '/' . $ar_fecha[1] . '/' . $ar_fecha[0];
+        @endphp
+
+        <span class="font-semibold">{{$fecha_f}}</span>
     </div>
 </li>

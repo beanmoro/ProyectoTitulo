@@ -49,10 +49,10 @@
 
 
                 @if ($postproducto->oferta != null)
-                <x-producto-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" negocio="{{$postproducto->negocio[0]->patente}}" product="{{$postproducto->producto->nombre}}" descripcion="{{$postproducto->producto->descripcion}}" etiquetas="{{ $etiq_f}}" location="{{$postproducto->negocio[0]->comuna}}" price="{{$postproducto->precio - $postproducto->oferta->descuento}}" oferta="{{$postproducto->precio}}" ></x-product-card>
+                <x-producto-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" negocio="{{$postproducto->negocio[0]->patente}}" product="{{$postproducto->producto->nombre}}" descripcion="{{$postproducto->producto->descripcion}}" etiquetas="{{ $etiq_f}}" location="{{$postproducto->negocio[0]->comuna}}" price="{{$postproducto->precio * (1 - $postproducto->oferta->descuento/100)}}" oferta="{{$postproducto->precio}}" telefono="{{$postproducto->negocio[0]->telefono}}"></x-product-card>
 
                 @else
-                    <x-producto-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" negocio="{{$postproducto->negocio[0]->patente}}" product="{{$postproducto->producto->nombre}}" descripcion="{{$postproducto->producto->descripcion}}" etiquetas="{{$etiq_f}}" location="{{$postproducto->negocio[0]->comuna}}" price="{{$postproducto->precio}}"  ></x-product-card>
+                    <x-producto-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" negocio="{{$postproducto->negocio[0]->patente}}" product="{{$postproducto->producto->nombre}}" descripcion="{{$postproducto->producto->descripcion}}" etiquetas="{{$etiq_f}}" location="{{$postproducto->negocio[0]->comuna}}" price="{{$postproducto->precio}}"  telefono="{{$postproducto->negocio[0]->telefono}}" ></x-product-card>
                 @endif
 
             @endforeach

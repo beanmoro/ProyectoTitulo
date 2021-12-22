@@ -25,7 +25,7 @@
             <div class="scroll-smooth hover:scroll-auto overflow-x-auto mb-4 p-2 h-80 border-2 border-gray-100 bg-gray-200 flex flex-rows rounded-md">
                 @foreach ($ofertas as $oferta)
                     
-                    <x-home-producto-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" product="{{$oferta->postproducto->producto->nombre}}" oferta="{{$oferta->postproducto->precio - $oferta->descuento}}" price="{{$oferta->postproducto->precio}}"></x-home-producto-card>
+                    <x-home-producto-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" product="{{$oferta->postproducto->producto->nombre}}" oferta="{{$oferta->postproducto->precio * (1 - $oferta->descuento/100)}}" price="{{$oferta->postproducto->precio}}"></x-home-producto-card>
 
                 @endforeach
                 

@@ -11,10 +11,10 @@ class OfertasController extends Controller
     //
 
     public function crearOferta(Request $request){
-        $postproducto = Postproducto::findOrFail($request->postproducto);
+        //$postproducto = Postproducto::findOrFail($request->postproducto);
         $request->validate([
             'postproducto' => ['unique:ofertas,postproducto_id'],
-            'descuento' => ['required','numeric','lt:' . $postproducto->precio],
+            'descuento' => ['required','numeric','gte:1','lte:90'],
             
         ]);
         $oferta = Oferta::create([

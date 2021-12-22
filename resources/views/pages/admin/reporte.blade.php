@@ -15,7 +15,12 @@
                 <div class="mt-4 mb-4 flex flex-col">
                     <span class="text-xl">RUT: {{ $reporte->rut }}</span>
                     <span class="text-xl">ID: {{ $reporte->id }}</span>
-                    <span class="text-xl">Fecha: {{ $reporte->created_at }}</span>
+                    @php
+                        $ar_fecha = explode('-', substr($reporte->created_at, 0, 10));
+                        $fecha_f = $ar_fecha[2] . '/' . $ar_fecha[1] . '/' . $ar_fecha[0];
+                    @endphp
+
+                    <span class="text-xl">Fecha: {{ $fecha_f }}</span>
 
                     <p>{{ $reporte->texto }}</p>
 

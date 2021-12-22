@@ -20,14 +20,16 @@
                     
 
                 </div>
-                <button class="rounded bg-green-600 flex flex-row justify-between hover:bg-green-500 p-4 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4" onclick="window.location='{{ 'https://wa.me/56'. $negocio->telefono }}'">
+                <button class="rounded bg-green-600 flex flex-row justify-between hover:bg-green-500 p-4 transform hover:scale-105 transition duration-500 ease-in-out pr-4 pl-4" onclick="window.open('https://wa.me/56{{$negocio->telefono}}')">
                     <span class="text-xl font-semibold align-center text-white">Contactar</span>
                     <span class="material-icons text-white">whatsapp</span>
                 </button>
 
                
-
-                @if ($negocio->patente == $minegocio->patente)
+ 
+                    
+                
+                @if ( $minegocio != null  && $negocio->patente == $minegocio->patente)
 
                     <button class=" mt-2 text-gray-100 rounded bg-gray-300 flex flex-row justify-between p-4 pr-4 pl-4" disabled>
                         <span class="text-xl font-semibold align-center text-white">Agregar a Favoritos</span>
@@ -61,6 +63,8 @@
                 
                 @endif
 
+
+
                 {{-- @endif --}}
 
                     
@@ -74,7 +78,7 @@
                 @endforeach
                     
                 </ul>
-                @if ($negocio->patente != $minegocio->patente)
+                @if ($minegocio == null || $negocio->patente != $minegocio->patente)
                     <div class="p-4">
                         <form method="POST" action="{{route('feedback.post')}}">
                             @csrf
@@ -128,7 +132,7 @@
                             @endphp
 
 
-                            <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='{{$postproducto->producto->nombre}}' stock='{{$postproducto->stock_referencial}}' descripcion="{{$postproducto->producto->descripcion}}" etiquetas="{{$etiq_f}}" precio='{{ $postproducto->precio }}' comuna='{{ $negocio->comuna}}' oferta='{{ ($postproducto->precio - $postproducto->oferta->descuento)}}'></x-producto-profile>
+                            <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='{{$postproducto->producto->nombre}}' stock='{{$postproducto->stock_referencial}}' descripcion="{{$postproducto->producto->descripcion}}" etiquetas="{{$etiq_f}}" precio='{{ $postproducto->precio }}' comuna='{{ $negocio->comuna}}' oferta='{{ ($postproducto->precio * (1 - $postproducto->oferta->descuento/100))}}'></x-producto-profile>
                         @endif
                     @endforeach
                 </ul>

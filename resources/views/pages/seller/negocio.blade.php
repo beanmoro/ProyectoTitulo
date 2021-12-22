@@ -56,7 +56,7 @@
                             @endphp
 
 
-                            <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='{{$postproducto->producto->nombre}}' stock='{{$postproducto->stock_referencial}}' descripcion="{{$postproducto->producto->descripcion}}" comuna='{{ $negocio->comuna}}' etiquetas="{{$etiq_f}}" precio='{{ $postproducto->precio }}' oferta='{{ ($postproducto->precio - $postproducto->oferta->descuento)}}'></x-producto-profile>
+                            <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='{{$postproducto->producto->nombre}}' stock='{{$postproducto->stock_referencial}}' descripcion="{{$postproducto->producto->descripcion}}" comuna='{{ $negocio->comuna}}' etiquetas="{{$etiq_f}}" precio='{{ $postproducto->precio }}' oferta='{{ ($postproducto->precio * (1 - $postproducto->oferta->descuento/100))}}'></x-producto-profile>
                         @endif
                     @endforeach
                     
