@@ -10,7 +10,8 @@ use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\PostProductosController;
 use App\Http\Controllers\OfertasController;
 use App\Http\Controllers\FavoritosController;
-use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\FeedbackController; 
+use App\Http\Controllers\ComunasController; 
 
 use App\Models\Producto;
 use App\Models\Negocio;
@@ -19,6 +20,7 @@ use App\Models\Postproducto;
 use App\Models\Oferta;
 use App\Models\Reporte;
 use App\Models\User;
+use App\Models\Comuna;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,11 +35,16 @@ use App\Models\User;
 
 
 Route::get("/",function(){
-    $productos = Producto::latest();
+    $postproductos = Postproducto::latest();
+
+
+
+    $ofertas = Oferta::latest();
 
 
     return view('home', [
-        'productos' => $productos->take(10)->get()
+        'postproductos' => $postproductos->get(),
+        'ofertas' => $ofertas->get()
     ]);
 
 })->name("home");
@@ -49,6 +56,7 @@ Route::get('/buscar', function () {
     if(Auth::user()->role >= 0){
         $productos = Producto::latest();
         $postproductos = Postproducto::latest();
+        $comunas = Comuna::all();
 
 
 
@@ -59,33 +67,88 @@ Route::get('/buscar', function () {
             
             if(request('producto') != null){
 
-                $postproductos = $postproductos
-                ->whereHas('negocio', function($query) {
-                    
-                    if(request('comuna') != "-1"){
-                        $query->where('comuna', 'like', '%' . request('comuna') . '%');
 
-                    }
-                })
-                ->orWhereHas('producto', function($query) use ($keywords) {
-                    
-                    $firstWord = array_shift($keywords);
-                    $query->where('nombre', 'like', '%' . $firstWord . '%');
+                $postproductos = Postproducto::where(function($q) use ($keywords) {
                     foreach($keywords as $keyword){
-                        
-                        $query->orWhere('nombre', 'like', '%' . $keyword . '%');
-                        
-                    }
-                })
-                ->WhereHas('producto', function($query) use ($keywords) {
-                    $query->whereHas('etiquetas',function($equery) use ($keywords) {
-                        $firstWord = array_shift($keywords);
-                        $equery->where('nombre', 'like', '%' . $firstWord . '%');
-                        foreach($keywords as $keyword){
-                            $equery->where( 'nombre', 'like', '%' . $keyword . '%');
+                        $A = $q->WhereHas('negocio', function($query) {
+                    
+                                if(request('comuna') != "-1"){
+                                    $query->where('comuna', 'like', '%' . request('comuna') . '%');
+            
+                                }
+                            })->first();
+
+                        if($A != null){
+                            $B = $q->WhereHas('producto', function($query) use ($keyword) {
+                    
+
+                                    
+                                $query->where('nombre', 'like', '%' . $keyword . '%');
+                                    
+
+                            })->first();
+
+                            if($B == null){
+                                $C = $q->orWhereHas('producto', function($query) use ($keyword) {
+                                    $query->whereHas('etiquetas',function($equery) use ($keyword) {
+                                            $equery->where( 'nombre', 'like', '%' . $keyword . '%');
+    
+                                    });
+                                })->first();
+
+                                if($C == null){
+                                    $D = $q->orWhereHas('producto', function($query) use ($keyword) {
+                    
+
+                                    
+                                        $query->where('marca', 'like', '%' . $keyword . '%');
+                                            
+        
+                                    })->first();
+                                    
+
+
+
+                                }
+                            }
+                            
+
                         }
-                    });
+ 
+                    }
+
+
                 });
+
+
+
+                // $postproductos = $postproductos
+                // ->whereHas('negocio', function($query) {
+                    
+                //     if(request('comuna') != "-1"){
+                //         return $query->where('comuna', 'like', '%' . request('comuna') . '%');
+
+                //     }
+                // })
+                // ->WhereHas('producto', function($query) use ($keywords) {
+                    
+                //     $firstWord = array_shift($keywords);
+                //     $query->where('nombre', 'like', '%' . $firstWord . '%');
+                //     foreach($keywords as $keyword){
+                        
+                //         $query->orWhere('nombre', 'like', '%' . $keyword . '%');
+                        
+                //     }
+                // })
+                // ->orWhereHas('producto', function($query) use ($keywords) {
+                //     return $query->whereHas('etiquetas',function($equery) use ($keywords) {
+                //         $firstWord = array_shift($keywords);
+                //         $equery->where('nombre', 'like', '%' . $firstWord . '%');
+                //         foreach($keywords as $keyword){
+                //             $equery->where( 'nombre', 'like', '%' . $keyword . '%');
+                //         }
+                //     });
+                // });
                 
             }else{
                 $postproductos->whereHas('negocio', function($query) {
@@ -97,7 +160,8 @@ Route::get('/buscar', function () {
         }
     
         return view('pages.client.buscar', [
-            'postproductos' => $postproductos->get()
+            'postproductos' => $postproductos->get(),
+            'comunas' => $comunas
         ]);
     }else{
 
@@ -123,7 +187,12 @@ Route::get('/favoritos', function () {
 
 Route::get('/publicar_negocio', function () {
     if(Auth::user()->role == 0){
-        return view('pages.client.publicar_negocio');
+
+        $comunas = Comuna::all();
+
+        return view('pages.client.publicar_negocio',[
+            'comunas' => $comunas
+        ]);
     }else if(Auth::user()->role == 3){
         return view('pages.client.solicitado');    
     }else{
@@ -352,6 +421,7 @@ Route::post("negocios/post",[NegociosController::class, "crearNegocios"])->name(
 Route::delete("negocios/delete/{negocio}",[NegociosController::class, "eliminarNegocio"])->name('negocios.delete');
 Route::get("negocios/get",[NegociosController::class, "getNegocio"])->name('negocios.get');
 Route::put("negocios/{negocio}/editar/telefono", [NegociosController::class, "editarTelefonoNegocio"])->name('negocios.editar.telefono');
+Route::get("negocios/comunas",[NegociosController::class, "getComunas"])->name('negocios.comunas.get');
 
 //Reportes
 Route::post("reportes/post",[ReportesController::class, "crearReportes"])->name('reportes.post');
@@ -396,6 +466,10 @@ Route::delete("favoritos/delete/{favorito}", [FavoritosController::class, "elimi
 //Feedback
 Route::post("feedback/post", [FeedbackController::class, "crearFeedback"])->name('feedback.post');
 Route::get("feedback/get",[FeedbackController::class, "getFeedback"])->name('feedback.get');
+
+//Comunas 
+Route::get("comunas/get", [ComunasController::class, "getComunas"])->name('comunas.get');
+
 
 
 //Rutas de Relaciones

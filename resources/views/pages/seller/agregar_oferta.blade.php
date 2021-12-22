@@ -20,16 +20,15 @@
                         <x-label for="postproducto" :value="__('Mi Producto')" />
                         <x-select id='postproducto' name='postproducto'>
                             @foreach ($postproductos as $postproducto)
+                                @if ($postproducto->oferta == null)
                                 <option value="{{$postproducto->id}}">{{$postproducto->producto->nombre}} : ${{$postproducto->precio}}</option>
+                                @endif
+                                
                             @endforeach
 
                         </x-select>
                     </div>
 
-                    <div class="mt-4">
-                        <x-label for=  :value="__('Mi Producto')" />
-
-                    </div>
         
                     <div class="mt-4">
                         <x-label for="descuento" :value="__('Descuento')" />

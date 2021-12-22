@@ -10,14 +10,19 @@
             <div class="bg-white m-4 p-8 shadow flex">
             
                 <input name="producto" class="w-full rounded-l-lg p-2 border-transparent bg-gray-200 shadow-inner" type="text" placeholder="Intenta buscar 'Leche'" value="{{ request('producto') }}">
-                <select name="comuna" id="comuna" class="w-48 rounded-r-lg p-2 border-transparent bg-gray-200 shadow-inner" value="{{ request('comuna') }}">
+                <select name="comuna" id="comuna" class="w-48  p-2 border-transparent bg-gray-200 shadow-inner">
                     <option value="-1">Ninguna</option>
-                    <option value="quillota">Quillota</option>
-                    <option value="limache">Limache</option>
-                    <option value="calera">Calera</option>
+                    @foreach ($comunas as $comuna)
+                        @if ($comuna->nombre == request('comuna'))
+                            <option selected value="{{$comuna->nombre}}">{{$comuna->nombre}}</option>
+                        @else
+                            <option value="{{$comuna->nombre}}">{{$comuna->nombre}}</option>
+                        @endif
+                        
+                    @endforeach
 
                 </select>
-                <button class="ml-1 bg-red-400 hover:bg-red-300 rounded text-white p-2 pl-4 pr-4 transition duration-500 ease-in-out transform hover:scale-110">
+                <button class=" bg-red-600 shadow-md hover:bg-red-500 rounded-r-lg text-white p-2 pl-4 pr-4 transition duration-500 ease-in-out transform hover:scale-110">
                     
                     <span class="material-icons text-3xl py-1">search</span>
                     
@@ -32,11 +37,22 @@
             <!-- Productos Buscados -->
             @foreach($postproductos as $postproducto)
 
+                @php
+                    $etiqs = $postproducto->producto->etiquetas()->get();
+                    $etiq_f = "";
+                    foreach($etiqs as $etiq){
+
+                        $etiq_f = $etiq_f .  $etiq->nombre . ", ";
+                    }
+                    $etiq_f = rtrim($etiq_f, ", ");
+                @endphp
+
+
                 @if ($postproducto->oferta != null)
-                <x-product-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" negocio="{{$postproducto->negocio[0]->patente}}" product="{{$postproducto->producto->nombre}}" location="{{$postproducto->negocio[0]->comuna}}" price="{{$postproducto->precio - $postproducto->oferta->descuento}}" oferta="{{$postproducto->precio}}" ></x-product-card>
+                <x-producto-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" negocio="{{$postproducto->negocio[0]->patente}}" product="{{$postproducto->producto->nombre}}" descripcion="{{$postproducto->producto->descripcion}}" etiquetas="{{ $etiq_f}}" location="{{$postproducto->negocio[0]->comuna}}" price="{{$postproducto->precio - $postproducto->oferta->descuento}}" oferta="{{$postproducto->precio}}" ></x-product-card>
 
                 @else
-                    <x-product-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" negocio="{{$postproducto->negocio[0]->patente}}" product="{{$postproducto->producto->nombre}}" location="{{$postproducto->negocio[0]->comuna}}" price="{{$postproducto->precio}}" ></x-product-card>
+                    <x-producto-card image="http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink" negocio="{{$postproducto->negocio[0]->patente}}" product="{{$postproducto->producto->nombre}}" descripcion="{{$postproducto->producto->descripcion}}" etiquetas="{{$etiq_f}}" location="{{$postproducto->negocio[0]->comuna}}" price="{{$postproducto->precio}}"  ></x-product-card>
                 @endif
 
             @endforeach

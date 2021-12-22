@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use App\Models\Negocio;
 use App\Models\User;
 use App\Models\Postproducto;
@@ -138,5 +140,11 @@ class NegociosController extends Controller
         return $negocio;
     }
 
-    
+    public function getComunas(){
+        $client = new Client();
+        $response = $client->get('https://apis.digital.gob.cl/dpa/comunas', []);
+        
+
+        return $response->getBody();
+    }
 }

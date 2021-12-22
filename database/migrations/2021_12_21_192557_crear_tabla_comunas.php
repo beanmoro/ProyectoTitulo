@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CrearTablaFeedbacks extends Migration
+class CrearTablaComunas extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CrearTablaFeedbacks extends Migration
      */
     public function up()
     {
-        Schema::create('feedbacks', function (Blueprint $table) {
+        Schema::create('comunas', function (Blueprint $table) {
             $table->id();
-            $table->string("comentario");
-            $table->boolean("calificacion");
-            $table->bigInteger("usuario_id");
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CrearTablaFeedbacks extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feedbacks');
+        Schema::dropIfExists('comunas');
     }
 }

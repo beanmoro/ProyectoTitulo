@@ -2,27 +2,28 @@
 
 
 
-<li class=" group transition duration-500 ease-in-out w-auto bg-white border-2 border-yellow hover:bg-yellow-100 transform hover:scale-105 m-3 p-4 shadow rounded flex justify-between items-center">
+<li class=" group transition duration-500 h-28 ease-in-out w-auto bg-white border-2 border-yellow hover:bg-yellow-100 transform hover:scale-105 m-3 p-4 shadow rounded flex flex-cols content-evenly justify-between items-center">
                 
                 
-    <img  class="hidden md:block w-16 h-16 rounded-full border-2 border-gray " src="{{ $image }}" alt=""> <!-- http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink -->
-    
-    <div class="flex flex-col relative">
+    {{-- <img  class="hidden md:block w-16 h-16 rounded-full border-2 border-gray " src="{{ $image }}" alt=""> <!-- http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink --> --}}
+    <span class="hidden md:block ml-4 material-icons text-4xl">inventory_2</span>
+    <div class="flex flex-col relative w-64">
 
 
         <span class="text-lg font-bold opacity-100 group-hover:opacity-0 group-hover:absolute duration-100">{{ $product }}</span>
 
          <!-- Leche Entera Colun 200cc -->
+        
         <div class=" p-0 md:p-3  opacity-0 group-hover:opacity-100  fixed top-0 bottom-0 group-hover:fixed flex flex-col duration-100">
             <span class="text-lg font-bold">{{ $product }}</span>
             <span class="">{{ $descripcion }}</span> <!-- Leche Entera Colun 200cc -->
+            <div class="flex flex-rows w-50">
+                @foreach ( explode(",",$etiquetas) as $e)
+                    <span class=" cursor-pointer bg-green-100 rounded-lg p-1 mr-2 text-sm shadow font-semibold" onclick="window.location='{{ url('/buscar?producto='. $e .'&comuna='. $location .'#') }}'">{{$e}}</span>
+                @endforeach
 
-            <span class="text-sm">
-
-
-   
-            
-            </span> <!-- Leche Entera Colun 200cc -->
+            </div>
+            {{-- <span class="text-sm">{{$etiquetas}}</span> <!-- Leche Entera Colun 200cc --> --}}
         </div>
         
     </div>

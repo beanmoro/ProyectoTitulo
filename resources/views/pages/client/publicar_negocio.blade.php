@@ -36,9 +36,9 @@
                 <div class="mt-4">
                     <x-label for="comuna" :value="__('Comuna')" />
                     <x-select id='comuna' name='comuna'>
-                        <option value="quillota">Quillota</option>
-                        <option value="calera">Calera</option>
-                        <option value="limache">Limache</option>
+                        @foreach ($comunas as $comuna)
+                        <option value="{{$comuna->nombre}}">{{$comuna->nombre}}</option>
+                        @endforeach
                     </x-select>
                 </div>
 

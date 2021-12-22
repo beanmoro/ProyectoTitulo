@@ -47,14 +47,10 @@ class PostProductosController extends Controller
     }
 
     public function eliminarPostProducto(Postproducto $postproducto){
-        $negocios = $postproducto->negocio();
-
+        $negocios = $postproducto->negocio()->get();
         foreach($negocios as $negocio){
-
             $postproducto->negocio()->detach($negocio->patente);
         }
-        
-        
         $postproducto->delete();
         return redirect()->route('productos');
 

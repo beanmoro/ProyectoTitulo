@@ -45,7 +45,18 @@
                     @foreach ($postproductos as $postproducto)
                         
                         @if ($postproducto->oferta != null)
-                            <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='{{$postproducto->producto->nombre}}' precio='{{ $postproducto->precio }}' oferta='{{ ($postproducto->precio - $postproducto->oferta->descuento)}}'></x-producto-profile>
+                            @php
+                                $etiqs = $postproducto->producto->etiquetas()->get();
+                                $etiq_f = "";
+                                foreach($etiqs as $etiq){
+            
+                                    $etiq_f = $etiq_f .  $etiq->nombre . ", ";
+                                }
+                                $etiq_f = rtrim($etiq_f, ", ");
+                            @endphp
+
+
+                            <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='{{$postproducto->producto->nombre}}' stock='{{$postproducto->stock_referencial}}' descripcion="{{$postproducto->producto->descripcion}}" comuna='{{ $negocio->comuna}}' etiquetas="{{$etiq_f}}" precio='{{ $postproducto->precio }}' oferta='{{ ($postproducto->precio - $postproducto->oferta->descuento)}}'></x-producto-profile>
                         @endif
                     @endforeach
                     
@@ -64,7 +75,17 @@
                     
                     @foreach ($postproductos as $postproducto)
                         @if ($postproducto->oferta == null)
-                        <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='{{$postproducto->producto->nombre}}' precio='{{$postproducto->precio}}'></x-producto-profile>
+                            @php
+                                $etiqs = $postproducto->producto->etiquetas()->get();
+                                $etiq_f = "";
+                                foreach($etiqs as $etiq){
+            
+                                    $etiq_f = $etiq_f .  $etiq->nombre . ", ";
+                                }
+                                $etiq_f = rtrim($etiq_f, ", ");
+                            @endphp
+
+                        <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='{{$postproducto->producto->nombre}}' stock='{{$postproducto->stock_referencial}}' descripcion="{{$postproducto->producto->descripcion}}" etiquetas="{{$etiq_f}}" comuna='{{ $negocio->comuna}}' precio='{{$postproducto->precio}}'></x-producto-profile>
                         @endif
                         
                     @endforeach

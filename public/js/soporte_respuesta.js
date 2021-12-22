@@ -104,7 +104,9 @@ const cargarTabla = (reporte) =>{
 
         
         tr.appendChild(tdAcciones);
-        tdAcciones.appendChild(botonRevisar);
+        if(tdEstado.innerText != "Solucionado"){
+            tdAcciones.appendChild(botonRevisar);
+        }
         tdAcciones.appendChild(botonEliminar);
         
         tbody.appendChild(tr);

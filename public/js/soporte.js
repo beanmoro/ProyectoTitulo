@@ -88,6 +88,7 @@ const cargarTabla = (reporte) =>{
 
         
         tr.appendChild(tdAcciones);
+        
         tdAcciones.appendChild(botonRevisar);
         tdAcciones.appendChild(botonEliminar);
         
