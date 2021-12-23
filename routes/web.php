@@ -121,34 +121,6 @@ Route::get('/buscar', function () {
                 });
 
 
-
-                // $postproductos = $postproductos
-                // ->whereHas('negocio', function($query) {
-                    
-                //     if(request('comuna') != "-1"){
-                //         return $query->where('comuna', 'like', '%' . request('comuna') . '%');
-
-                //     }
-                // })
-                // ->WhereHas('producto', function($query) use ($keywords) {
-                    
-                //     $firstWord = array_shift($keywords);
-                //     $query->where('nombre', 'like', '%' . $firstWord . '%');
-                //     foreach($keywords as $keyword){
-                        
-                //         $query->orWhere('nombre', 'like', '%' . $keyword . '%');
-                        
-                //     }
-                // })
-                // ->orWhereHas('producto', function($query) use ($keywords) {
-                //     return $query->whereHas('etiquetas',function($equery) use ($keywords) {
-                //         $firstWord = array_shift($keywords);
-                //         $equery->where('nombre', 'like', '%' . $firstWord . '%');
-                //         foreach($keywords as $keyword){
-                //             $equery->where( 'nombre', 'like', '%' . $keyword . '%');
-                //         }
-                //     });
-                // });
                 
             }else{
                 $postproductos->whereHas('negocio', function($query) {

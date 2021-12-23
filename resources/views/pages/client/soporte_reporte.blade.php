@@ -76,8 +76,6 @@
                 var userRUT = '{{ Auth::user()->rut }}';
             </script>
         @endif
-                
-        </script>
         <script src="{{asset('js/service/reportesService.js')}}"></script>
         <script src="{{asset('js/soporte.js')}}"></script>
     </x-slot>

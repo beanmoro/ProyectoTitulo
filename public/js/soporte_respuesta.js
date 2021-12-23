@@ -17,7 +17,7 @@ const deleteReporte = async function(){
 }
 
 const cargarTabla = (reporte) =>{
-    let tbody = document.querySelector("#tbody-soporte");
+    let tbody = document.querySelector("#tbody-soporteADM");
     tbody.innerHTML = "";
     for(let i=0; i < reporte.length; ++i){
         let tr = document.createElement("tr");

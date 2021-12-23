@@ -32,11 +32,8 @@
 
                     <div class="mt-4">
                         <x-label for="marca" :value="__('Marca')" />
-                        <select name="marca" id="marca" class="form-select rounded block w-full mt-1 focus:ring-2 focus:ring-oppacity-50 focus:ring-yellow-300 transform hover:scale-105 focus:scale-110  transition duration-500 ease-in-out" >
-                            <option value="lider">Lider</option>
-                            <option value="tottus">Tottus</option>
-                            <option value="jumbo">Jumbo</option>
-                        </select>
+                        <x-input name="marca" id="marca" type="text" class="rounded block w-full mt-1 focus:ring-2 focus:ring-oppacity-50 focus:ring-yellow-300 transform hover:scale-105 focus:scale-110  transition duration-500 ease-in-out" />
+
                     </div>
 
                     <div class="mt-4" > 

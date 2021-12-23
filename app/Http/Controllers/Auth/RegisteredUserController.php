@@ -33,6 +33,9 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->rut = str_replace(".", "", $request->rut);
+        $request->rut = str_replace("-", "", $request->rut);
+        $request->rut = str_replace("K", "k", $request->rut);
         $request->validate([
             'rut' => ['required', 'string', 'cl_rut', 'unique:users'],
             'name' => ['required', 'string', 'max:255'],

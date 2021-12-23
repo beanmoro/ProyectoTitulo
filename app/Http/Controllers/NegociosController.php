@@ -29,7 +29,7 @@ class NegociosController extends Controller
             'nombre' => ['required', 'string', 'min:8','max:64'],
             'direccion' => ['required', 'string', 'min:8', 'max:64'],
             'comuna' => ['required', 'string'],
-            'telefono' => ['required', 'integer', 'unique:negocios']
+            'telefono' => ['required', 'numeric', 'unique:negocios', 'digits:9']
         ]);
 
         $negocio = Negocio::create([

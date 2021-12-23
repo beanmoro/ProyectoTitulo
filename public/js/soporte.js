@@ -2,9 +2,16 @@
 
 const deleteReporte = async function(){
     let id = this.idReporte;
-    if(await eliminarReporte(id)){
-        let Reporte = await getReporte();
-        cargarTabla(Reporte);
+    let eliminarbtn = await Swal.fire({title:"¿Esta seguro de la operacion?",text:"Esta operacion no es reversible"
+    , icon: "warning",showCancelButton:true});
+    if(eliminarbtn.isConfirmed){
+        if(await eliminarReporte(id)){
+            let Reporte = await getReporteRut(userRUT);
+            cargarTabla(Reporte);
+            Swal.fire("Reporte eliminado", "Se elimino correctamente el reporte", "info");
+        }
+    }else{
+        Swal.fire("Cancelado", "La operacion fue cancelada", "info");
     }
 }
 

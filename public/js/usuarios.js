@@ -104,6 +104,9 @@ const cargarTabla = (usuarios) =>{
         }else if (tdRol.innerText == "Usuario Bloqueado"){
             tdAcciones.appendChild(botonDesBan);
         }
+        if(tdRol.innerText == "Administrador"){
+            botonBanear.disabled = true;
+        }
         
         
         tbody.appendChild(tr);

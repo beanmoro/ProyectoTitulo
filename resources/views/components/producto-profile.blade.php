@@ -32,7 +32,7 @@
 
         <span class="ml-1 opacity-100 group-hover:opacity-0 duration-50">{{$stock}}</span>
 
-        <div class="flex flex-col opacity-0 group-hover:opacity-100 fixed left-64 top-4 duration-100">
+        <div class="flex flex-col opacity-0 group-hover:opacity-100 fixed left-70 top-4 duration-100">
             <span class="text-sm text-center font-bold">Stock Referencial</span>
             <span class="text-center font-semibold">{{$stock}}</span>
         </div>

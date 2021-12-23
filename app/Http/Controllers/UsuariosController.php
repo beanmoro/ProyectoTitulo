@@ -19,10 +19,19 @@ class UsuariosController extends Controller
 
     public function banUsuario(User $user){
         $user->role = -1;
+        
+        $negocio = Negocio::where('rut', $user->rut)->first();
+
+        if($negocio != null){
+            $negocio->delete();
+        }
+
+
         $user->save();
         return "ok";
     }
     public function desbanUsuario(User $user){
+        
         $user->role = 0;
         $user->save();
         return "ok";

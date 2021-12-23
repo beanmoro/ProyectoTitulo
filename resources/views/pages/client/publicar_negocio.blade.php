@@ -37,7 +37,7 @@
                     <x-label for="comuna" :value="__('Comuna')" />
                     <x-select id='comuna' name='comuna'>
                         @foreach ($comunas as $comuna)
-                        <option value="{{$comuna->nombre}}">{{$comuna->nombre}}</option>
+                            <option value="{{$comuna->nombre}}">{{$comuna->nombre}}</option>
                         @endforeach
                     </x-select>
                 </div>

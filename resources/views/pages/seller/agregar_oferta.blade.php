@@ -65,9 +65,9 @@
                             @if ($postproducto->oferta != null)
                             <tr>
                                 <td id="tbody-producto" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">{{$postproducto->producto->nombre}}</td>
-                                <td id="tbody-descuento" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">${{($postproducto->precio)}} </td>
+                                <td id="tbody-precio" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">${{$postproducto->precio}} </td>
                                 <td id="tbody-descuento" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">{{($postproducto->oferta->descuento)}}%</td>
-                                <td id="tbody-descuento" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">${{($postproducto->precio * (1 - $postproducto->oferta->descuento/100))}}</td>
+                                <td id="tbody-oferta" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">${{($postproducto->precio * (1 - $postproducto->oferta->descuento/100))}}</td>
                                 <td id="tbody-button" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                                     <button onclick="confirmarEliminacion('{{$postproducto->oferta->id}}')" class="inline-flex items-center px-2  shadow-md py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:shadow-lg hover:bg-red-400 active:bg-red-900 focus:outline-none focus:border-red-900 focus:ring ring-red-300 disabled:opacity-25 transform hover:scale-105 focus:scale-110 transition ease-in-out duration-150">
                                         <span class='text-md material-icons text-white'>delete</span>
@@ -79,18 +79,13 @@
                                     </form>
                                     
                                 </td>
-                                
-                                <!-- <x-producto-profile imagen='http://images.lider.cl/wmtcl?source=url[file:/productos/5101a.jpg]&sink' producto='$postproducto->producto->nombre' precio=' $postproducto->precio ' oferta='($postproducto->precio - $postproducto->oferta->descuento)'></x-producto-profile> -->  
                             </tr>
                             @endif
                         @endforeach
                     </tbody>
                 </table>
             </div>
-
-
         </div>
-
     </x-slot>
 
     <x-slot name="scripts">

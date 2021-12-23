@@ -23,7 +23,7 @@
                             <td class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Acciones</td>
                         </tr>
                     </thead>
-                    <tbody id="tbody-soporte" class="divide-y divide-gray-200">
+                    <tbody id="tbody-soporteADM" class="divide-y divide-gray-200">
                     </tbody>
                 </table>
             </div>
